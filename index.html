@@ -152,44 +152,22 @@
                     <h2>About Motif Oracle</h2>
                     <p>Motif Oracle is a storytelling tool designed for solo roleplaying and creative writing. It uses a three-die system to generate answers and add nuance to your narrative.</p>
                     
-                    <h3>Session Management</h3>
-                    <p>Your work is automatically saved and can be managed using the buttons at the top of the notebook:</p>
-                    <ul>
-                        <li><strong>Auto-Save System:</strong>
-                            <ul>
-                                <li>Auto Save every 30 seconds</li>
-                                <li>Backup Save every 5 minutes</li>
-                                <li>Sessions persist through page refreshes</li>
-                                <li>All data stored locally in your browser</li>
-                            </ul>
-                        </li>
-                        <li><strong>Save Session:</strong> Create a named save of your current work</li>
-                        <li><strong>Load Session:</strong> 
-                            <ul>
-                                <li>View and load any saved session</li>
-                                <li>Auto-saves appear at the top of the list</li>
-                                <li>Shows date and time of each save</li>
-                            </ul>
-                        </li>
-                        <li><strong>Export Session:</strong> 
-                            <ul>
-                                <li>Save your work as a file on your computer</li>
-                                <li>Creates a ZIP file named MotifNotebook-[Session Name].zip</li>
-                                <li>Useful for backup or sharing between browsers</li>
-                            </ul>
-                        </li>
-                        <li><strong>Import Session:</strong> Load a previously exported session file</li>
-                        <li><strong>New Session:</strong> Start fresh with empty editors (requires confirmation)</li>
-                    </ul>
-
                     <h3>Notebook Features</h3>
                     <ul>
                         <li><strong>Oracle:</strong> The main oracle interface with roll history</li>
-                        <li><strong>Character Notes:</strong> Track character details and development</li>
-                        <li><strong>Scene Notes:</strong> Document current scene information</li>
-                        <li><strong>Story So Far:</strong> Keep a record of your narrative</li>
+                        <li><strong>Character:</strong> A place for character details and development</li>
+                        <li><strong>Scene Notes:</strong> Track your current scene</li>
+                        <li><strong>Story So Far:</strong> Record your overall narrative</li>
                         <li><strong>Extra Notes:</strong> Space for additional information</li>
                     </ul>
+
+                    <h3>Oracle Instructions</h3>
+                    <ol>
+                        <li>Enter your yes/no question in the question field (optional)</li>
+                        <li>Select your desired die options</li>
+                        <li>Click "Roll" to get your answer</li>
+                        <li>Use the notebook tabs to record your story</li>
+                    </ol>
 
                     <h3>The Three-Die System</h3>
                     <h4>Die 1: Answer Die</h4>
@@ -197,28 +175,15 @@
                         <li><strong>Plain Yes/No:</strong> Simple binary answers</li>
                         <li><strong>Mixed Yes/No/Maybe:</strong> Includes possibility of mixed or uncertain results</li>
                     </ul>
-
-                    <h4>Die 2: Wrinkle Die</h4>
+                    <h4>Die 2: Modifier Die</h4>
                     <ul>
-                        <li><strong>Wrinkle:</strong> Adds "But" or "And" complications to answers</li>
-                        <li><strong>Certainty:</strong> Indicates how sure or strong the answer is</li>
+                        <li><strong>Wrinkle:</strong> Adds complications or twists</li>
+                        <li><strong>Certainty:</strong> Indicates the confidence level of the answer</li>
                     </ul>
-
-                    <h4>Die 3: Flavor Die</h4>
-                    <p>Choose from various interpretive lenses:</p>
+                    <h4>Die 3: Context Die</h4>
                     <ul>
-                        <li><strong>Activity:</strong> Level of action or movement</li>
-                        <li><strong>Advantage:</strong> Beneficial or harmful aspects</li>
-                        <li><strong>Attention:</strong> How noticed something is</li>
-                        <li><strong>Disposition:</strong> Attitudes and relationships</li>
-                        <li><strong>Impression:</strong> Emotional impact</li>
-                        <li><strong>Progress:</strong> Development or setbacks</li>
-                        <li><strong>Safety:</strong> Level of danger or security</li>
-                        <li><strong>Supernatural:</strong> Presence of otherworldly elements</li>
-                        <li><strong>Utility:</strong> Usefulness or practicality</li>
-                        <li><strong>Value:</strong> Worth or importance</li>
-                        <li><strong>Weird:</strong> Degree of strangeness</li>
-                        <li><strong>YOUR CHOICE:</strong> Flexible scale for your own interpretation</li>
+                        <li>Provides additional context for interpreting the answer</li>
+                        <li>Multiple context options available for different situations</li>
                     </ul>
 
                     <h3>How to Use</h3>
@@ -238,6 +203,47 @@
                         <li>Comprehensive session management</li>
                         <li>Automatic backup system</li>
                     </ul>
+
+                    <h3>Session Management</h3>
+                    <p>Your work is automatically saved and can be managed using the buttons at the top of the notebook:</p>
+                    <ul>
+                        <li><strong>Auto-Save System:</strong>
+                            <ul>
+                                <li>Auto Save every 30 seconds</li>
+                                <li>Backup Save every 5 minutes</li>
+                                <li>Sessions persist through page refreshes</li>
+                                <li>All data stored locally in your browser</li>
+                            </ul>
+                        </li>
+                        <li><strong>Save Session:</strong> Create a named save of your current work</li>
+                        <li><strong>Load Session:</strong> 
+                            <ul>
+                                <li>View and load any saved session</li>
+                                <li>Delete unwanted saves using the trash can icon</li>
+                                <li>Auto-saves appear at the top of the list</li>
+                                <li>Shows date and time of each save</li>
+                                <li>Confirmation dialogs protect against accidental deletion or loading</li>
+                            </ul>
+                        </li>
+                        <li><strong>Export Session:</strong> 
+                            <ul>
+                                <li>Save your work as a file on your computer</li>
+                                <li>Creates a ZIP file named MotifNotebook-[Session Name].zip</li>
+                                <li>Useful for backup or sharing between browsers</li>
+                            </ul>
+                        </li>
+                        <li><strong>Import Session:</strong> Load a previously exported ZIP file</li>
+                        <li><strong>New Session:</strong> Start fresh with a clean notebook (requires confirmation)</li>
+                    </ul>
+
+                    <h3>Data Safety</h3>
+                    <p>Your work is protected through multiple save mechanisms:</p>
+                    <ul>
+                        <li>Frequent auto-saves prevent data loss</li>
+                        <li>Backup saves provide additional protection</li>
+                        <li>Confirmation dialogs prevent accidental data loss</li>
+                        <li>Export feature allows external backups</li>
+                    </ul>
                 </div>
             </div>
         </main>
@@ -246,6 +252,43 @@
             <p>Motif is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a></p>
         </footer>
     </div>
+    
+    <!-- Save Session Modal -->
+    <div id="save-session-modal" class="modal">
+        <div class="modal-content">
+            <h3>Save Session</h3>
+            <div class="save-session-container">
+                <select id="save-session-select" class="session-select">
+                    <option value="NEW_SAVE">NEW SAVE</option>
+                </select>
+                <div id="new-save-input" style="display: none;">
+                    <input type="text" id="session-name-input" placeholder="Enter session name">
+                </div>
+                <div class="modal-buttons">
+                    <button id="save-session-ok" class="modal-btn">OK</button>
+                    <button id="save-session-cancel" class="modal-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Overwrite</h3>
+            <p id="confirm-message">Are you sure you want to overwrite this save?</p>
+            <div class="modal-buttons">
+                <button id="confirm-yes" class="modal-btn">Yes</button>
+                <button id="confirm-no" class="modal-btn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="success-message" class="success-message">
+        Session saved successfully!
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

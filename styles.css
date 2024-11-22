@@ -239,6 +239,7 @@ h1 {
 /* Sub Tabs */
 .notebook-nav {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     border-bottom: 2px solid var(--border-color);
     padding: 10px 10px 0;
@@ -246,7 +247,7 @@ h1 {
 }
 
 .notebook-tab-btn {
-    padding: 8px 16px;
+    padding: 6px 12px;
     background: var(--cream-light);
     border: 1px solid var(--border-color);
     border-bottom: none;
@@ -256,6 +257,9 @@ h1 {
     transition: all 0.2s ease;
     position: relative;
     top: 2px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    min-width: min-content;
 }
 
 .notebook-tab-btn:hover {
@@ -283,6 +287,51 @@ h1 {
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
     font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+    .notebook-nav {
+        gap: 0.25rem;
+        padding: 8px 8px 0;
+    }
+
+    .notebook-tab-btn {
+        padding: 4px 8px;
+        font-size: 0.85rem;
+    }
+
+    .select-group {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .dice-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .dice {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .notebook-nav {
+        gap: 0.2rem;
+        padding: 6px 6px 0;
+    }
+
+    .notebook-tab-btn {
+        padding: 3px 6px;
+        font-size: 0.8rem;
+    }
+
+    .dice-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Oracle Controls */
@@ -391,18 +440,44 @@ select, input[type="text"] {
 }
 
 .dice.rolling {
-    animation: roll 0.5s linear infinite, shake 0.1s linear infinite;
+    animation: roll 0.8s linear infinite, shake 0.4s linear infinite;
+    transform-style: preserve-3d;
+}
+
+.dice.triple-roll {
+    animation: tripleRoll 3s ease-out forwards;
 }
 
 @keyframes shake {
     0%, 100% {
         transform: translate(0, 0) rotate(0deg);
     }
-    10%, 30%, 50%, 70%, 90% {
-        transform: translate(-4px, -4px) rotate(-8deg);
+    10% {
+        transform: translate(-8px, -8px) rotate(-15deg);
     }
-    20%, 40%, 60%, 80% {
-        transform: translate(4px, 4px) rotate(8deg);
+    20% {
+        transform: translate(8px, 8px) rotate(15deg);
+    }
+    30% {
+        transform: translate(-8px, 8px) rotate(-15deg);
+    }
+    40% {
+        transform: translate(8px, -8px) rotate(15deg);
+    }
+    50% {
+        transform: translate(-8px, 0) rotate(-15deg);
+    }
+    60% {
+        transform: translate(8px, 0) rotate(15deg);
+    }
+    70% {
+        transform: translate(0, -8px) rotate(-15deg);
+    }
+    80% {
+        transform: translate(0, 8px) rotate(15deg);
+    }
+    90% {
+        transform: translate(-4px, -4px) rotate(-5deg);
     }
 }
 
@@ -411,17 +486,34 @@ select, input[type="text"] {
         transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
     }
     25% {
-        transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg);
+        transform: rotateX(180deg) rotateY(180deg) rotateZ(90deg);
     }
     50% {
-        transform: rotateX(720deg) rotateY(360deg) rotateZ(180deg);
+        transform: rotateX(360deg) rotateY(90deg) rotateZ(180deg);
     }
     75% {
-        transform: rotateX(360deg) rotateY(540deg) rotateZ(270deg);
+        transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg);
     }
     100% {
-        transform: rotateX(0deg) rotateY(720deg) rotateZ(360deg);
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
     }
+}
+
+@keyframes tripleRoll {
+    0% { 
+        background-color: var(--primary-color);
+        color: var(--cream-light);
+        transform: scale(1.1);
+    }
+    100% { 
+        background-color: var(--cream-light);
+        color: var(--primary-color);
+        transform: scale(1);
+    }
+}
+
+.dice {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 /* Roll Button */
@@ -512,8 +604,24 @@ select, input[type="text"] {
     position: relative;
 }
 
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .modal-header {
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
 }
 
 .modal-header h3 {
@@ -522,66 +630,13 @@ select, input[type="text"] {
 }
 
 .modal-body {
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
 }
 
 .modal-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-}
-
-.close-modal {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.close-modal:hover {
-    color: var(--primary-color);
-}
-
-.session-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.session-list li {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
-}
-
-.session-list li:hover {
-    background-color: var(--cream-medium);
-}
-
-.session-list li.separator {
-    border-bottom: 2px solid var(--primary-color);
-    margin: 10px 0;
-    cursor: default;
-}
-
-.session-list li.auto-save {
-    color: var(--text-color);
-    font-style: italic;
-}
-
-#session-name, #export-name {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--cream-light);
-    color: var(--text-color);
 }
 
 /* About Content */
@@ -737,4 +792,108 @@ footer a:hover {
 
 .preview-section > div p:last-child {
     margin-bottom: 0;
+}
+
+/* Save Session Modal Styles */
+.save-session-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.session-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--cream-light);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.session-select option {
+    padding: 8px;
+    font-size: 0.9rem;
+}
+
+.session-select option[value="NEW_SAVE"] {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.session-select option[disabled] {
+    color: var(--border-color);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+#new-save-input {
+    margin-top: 0.5rem;
+}
+
+#session-name-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: var(--cream-light);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.modal-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.modal-btn:first-child {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.modal-btn:last-child {
+    background-color: var(--cream-medium);
+    color: var(--text-color);
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Success Message */
+.success-message {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
