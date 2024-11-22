@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motif Oracle</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="lib/tinymce/tinymce.min.js"></script>
+    <script src="lib/jszip/jszip.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Motif Oracle Notebook</h1>
+            <div class="functionality-buttons">
+                <button id="save-session-btn">Save Session</button>
+                <button id="load-session-btn">Load Session</button>
+                <button id="export-session-btn">Export Session</button>
+                <button id="import-session-btn">Import Session</button>
+                <button id="new-session-btn">New Session</button>
+            </div>
+        </header>
+        <main>
+            <div class="main-tabs">
+                <div class="main-tab active" data-tab="notebook">Notebook</div>
+                <div class="main-tab" data-tab="about">About</div>
+            </div>
+            <!-- Notebook Tab -->
+            <div id="notebook-tab" class="main-tab-content">
+                <div class="notebook-container">
+                    <nav class="notebook-nav">
+                        <div class="notebook-tab active" data-tab="oracle">Oracle</div>
+                        <div class="notebook-tab" data-tab="character">Character</div>
+                        <div class="notebook-tab" data-tab="scene">Scene Notes</div>
+                        <div class="notebook-tab" data-tab="story">Story So Far</div>
+                        <div class="notebook-tab" data-tab="extra">Extra Notes</div>
+                    </nav>
+                    <div class="notebook-content">
+                        <div id="oracle-tab" class="notebook-tab-content active">
+                            <div class="oracle-controls">
+                                <div class="input-group">
+                                    <input type="text" id="question-input" placeholder="Enter your question (optional)">
+                                    <button id="roll-btn">Roll</button>
+                                </div>
+                                <div class="dice-row">
+                                    <div class="dice" id="dice1">1</div>
+                                    <div class="dice" id="dice2">1</div>
+                                    <div class="dice" id="dice3">1</div>
+                                </div>
+                                <div class="select-group">
+                                    <div class="select-container">
+                                        <div class="select-label">Answer Type</div>
+                                        <select id="select1">
+                                            <option value="Plain">Plain Yes/No</option>
+                                            <option value="Mixed">Mixed Yes/No/Maybe</option>
+                                        </select>
+                                    </div>
+                                    <div class="select-container">
+                                        <div class="select-label">Modifier</div>
+                                        <select id="select2">
+                                            <option value="Wrinkle">Wrinkle</option>
+                                            <option value="Certainty">Certainty</option>
+                                        </select>
+                                    </div>
+                                    <div class="select-container">
+                                        <div class="select-label">Context</div>
+                                        <select id="select3">
+                                            <option value="Activity">Activity</option>
+                                            <option value="Advantage">Advantage</option>
+                                            <option value="Attention">Attention</option>
+                                            <option value="Disposition">Disposition</option>
+                                            <option value="Impression">Impression</option>
+                                            <option value="Intensity">Intensity</option>
+                                            <option value="Progress">Progress</option>
+                                            <option value="Safety">Safety</option>
+                                            <option value="Supernatural">Supernatural</option>
+                                            <option value="Utility">Utility</option>
+                                            <option value="Value">Value</option>
+                                            <option value="Weird">Weird</option>
+                                            <option value="YOUR CHOICE">YOUR CHOICE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="roll-results" class="roll-results"></div>
+                            </div>
+                            <div class="editor-container">
+                                <textarea id="rolls-editor"></textarea>
+                            </div>
+                        </div>
+                        <div id="character-tab" class="notebook-tab-content">
+                            <h3>Character</h3>
+                            <div class="editor-container">
+                                <textarea id="character-editor"></textarea>
+                            </div>
+                        </div>
+                        <div id="scene-tab" class="notebook-tab-content">
+                            <h3>Scene Notes</h3>
+                            <div class="editor-container">
+                                <textarea id="scene-editor"></textarea>
+                            </div>
+                        </div>
+                        <div id="story-tab" class="notebook-tab-content">
+                            <h3>Story So Far</h3>
+                            <div class="editor-container">
+                                <textarea id="story-editor"></textarea>
+                            </div>
+                        </div>
+                        <div id="extra-tab" class="notebook-tab-content">
+                            <h3>Extra Notes</h3>
+                            <div class="editor-container">
+                                <textarea id="extra-editor"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div id="about-tab" class="main-tab-content" style="display: none;">
+                <div class="about-content">
+                    <h2>About Motif Oracle</h2>
+                    <p>Motif Oracle is a storytelling tool designed for solo roleplaying and creative writing. It uses a three-die system to generate answers and add nuance to your narrative.</p>
+                    
+                    <h3>Session Management</h3>
+                    <p>Your work is automatically saved and can be managed using the buttons at the top of the notebook:</p>
+                    <ul>
+                        <li><strong>Auto-Save System:</strong>
+                            <ul>
+                                <li>Auto Save every 30 seconds</li>
+                                <li>Backup Save every 5 minutes</li>
+                                <li>Sessions persist through page refreshes</li>
+                                <li>All data stored locally in your browser</li>
+                            </ul>
+                        </li>
+                        <li><strong>Save Session:</strong> Create a named save of your current work</li>
+                        <li><strong>Load Session:</strong> 
+                            <ul>
+                                <li>View and load any saved session</li>
+                                <li>Auto-saves appear at the top of the list</li>
+                                <li>Shows date and time of each save</li>
+                            </ul>
+                        </li>
+                        <li><strong>Export Session:</strong> 
+                            <ul>
+                                <li>Save your work as a file on your computer</li>
+                                <li>Creates a ZIP file named MotifNotebook-[Session Name].zip</li>
+                                <li>Useful for backup or sharing between browsers</li>
+                            </ul>
+                        </li>
+                        <li><strong>Import Session:</strong> Load a previously exported session file</li>
+                        <li><strong>New Session:</strong> Start fresh with empty editors (requires confirmation)</li>
+                    </ul>
+
+                    <h3>Notebook Features</h3>
+                    <ul>
+                        <li><strong>Oracle:</strong> The main oracle interface with roll history</li>
+                        <li><strong>Character Notes:</strong> Track character details and development</li>
+                        <li><strong>Scene Notes:</strong> Document current scene information</li>
+                        <li><strong>Story So Far:</strong> Keep a record of your narrative</li>
+                        <li><strong>Extra Notes:</strong> Space for additional information</li>
+                    </ul>
+
+                    <h3>The Three-Die System</h3>
+                    <h4>Die 1: Answer Die</h4>
+                    <ul>
+                        <li><strong>Plain Yes/No:</strong> Simple binary answers</li>
+                        <li><strong>Mixed Yes/No/Maybe:</strong> Includes possibility of mixed or uncertain results</li>
+                    </ul>
+
+                    <h4>Die 2: Wrinkle Die</h4>
+                    <ul>
+                        <li><strong>Wrinkle:</strong> Adds "But" or "And" complications to answers</li>
+                        <li><strong>Certainty:</strong> Indicates how sure or strong the answer is</li>
+                    </ul>
+
+                    <h4>Die 3: Flavor Die</h4>
+                    <p>Choose from various interpretive lenses:</p>
+                    <ul>
+                        <li><strong>Activity:</strong> Level of action or movement</li>
+                        <li><strong>Advantage:</strong> Beneficial or harmful aspects</li>
+                        <li><strong>Attention:</strong> How noticed something is</li>
+                        <li><strong>Disposition:</strong> Attitudes and relationships</li>
+                        <li><strong>Impression:</strong> Emotional impact</li>
+                        <li><strong>Progress:</strong> Development or setbacks</li>
+                        <li><strong>Safety:</strong> Level of danger or security</li>
+                        <li><strong>Supernatural:</strong> Presence of otherworldly elements</li>
+                        <li><strong>Utility:</strong> Usefulness or practicality</li>
+                        <li><strong>Value:</strong> Worth or importance</li>
+                        <li><strong>Weird:</strong> Degree of strangeness</li>
+                        <li><strong>YOUR CHOICE:</strong> Flexible scale for your own interpretation</li>
+                    </ul>
+
+                    <h3>How to Use</h3>
+                    <ol>
+                        <li>Enter your yes/no question in the question field (optional)</li>
+                        <li>Select your desired die options</li>
+                        <li>Click "Roll" to get your answer</li>
+                        <li>Use the notebook tabs to record your story</li>
+                    </ol>
+
+                    <h3>Features</h3>
+                    <ul>
+                        <li>Rich text editing in all notebook sections</li>
+                        <li>Automatic roll history tracking</li>
+                        <li>Simple and intuitive interface</li>
+                        <li>Works offline - all data stored locally</li>
+                        <li>Comprehensive session management</li>
+                        <li>Automatic backup system</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>Motif Oracle Notebook was developed by Rev from <a href="https://bsky.app/profile/thoughtpunks.com" target="_blank">Thought Punks</a></p>
+            <p>Motif is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a></p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
