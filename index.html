@@ -23,10 +23,12 @@
         <main>
             <div class="main-tabs">
                 <div class="main-tab active" data-tab="notebook">Notebook</div>
+                <div class="main-tab" data-tab="print">Print Preview</div>
                 <div class="main-tab" data-tab="about">About</div>
             </div>
+            
             <!-- Notebook Tab -->
-            <div id="notebook-tab" class="main-tab-content">
+            <div id="notebook-tab" class="main-tab-content active">
                 <div class="notebook-container">
                     <nav class="notebook-nav">
                         <div class="notebook-tab active" data-tab="oracle">Oracle</div>
@@ -114,7 +116,36 @@
                     </div>
                 </div>
             </div>
-
+            
+            <!-- Print Preview Tab -->
+            <div id="print-tab" class="main-tab-content">
+                <div class="print-controls">
+                    <button id="print-session-btn">Print Session</button>
+                </div>
+                <div class="print-preview">
+                    <div class="preview-section">
+                        <h2>Character</h2>
+                        <div id="print-character"></div>
+                    </div>
+                    <div class="preview-section">
+                        <h2>Scene Notes</h2>
+                        <div id="print-scene"></div>
+                    </div>
+                    <div class="preview-section">
+                        <h2>Story So Far</h2>
+                        <div id="print-story"></div>
+                    </div>
+                    <div class="preview-section">
+                        <h2>Extra Notes</h2>
+                        <div id="print-extra"></div>
+                    </div>
+                    <div class="preview-section">
+                        <h2>Oracle Rolls</h2>
+                        <div id="print-rolls"></div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- About Tab -->
             <div id="about-tab" class="main-tab-content" style="display: none;">
                 <div class="about-content">

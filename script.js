@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Dice interpretations - hardcoded values for simplicity
     const diceInterpretations = {
         "1": {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Tab Management
+    // Main tab switching
     document.querySelectorAll('.main-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             // Remove active class from all tabs
@@ -39,8 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // Show selected tab content
-            const tabId = tab.dataset.tab;
-            document.getElementById(`${tabId}-tab`).style.display = 'block';
+            const tabId = tab.getAttribute('data-tab');
+            const tabContent = document.getElementById(`${tabId}-tab`);
+            if (tabContent) {
+                tabContent.style.display = 'block';
+                if (tabId === 'print') {
+                    updatePrintPreview();
+                }
+            }
         });
     });
 
@@ -79,36 +85,55 @@ document.addEventListener('DOMContentLoaded', () => {
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     };
 
-    tinymce.init({
-        ...editorConfig,
-        selector: '#rolls-editor'
-    });
+    await Promise.all([
+        tinymce.init({...editorConfig, selector: '#character-editor'}),
+        tinymce.init({...editorConfig, selector: '#scene-editor'}),
+        tinymce.init({...editorConfig, selector: '#story-editor'}),
+        tinymce.init({...editorConfig, selector: '#extra-editor'}),
+        tinymce.init({...editorConfig, selector: '#rolls-editor'})
+    ]);
 
-    tinymce.init({
-        ...editorConfig,
-        selector: '#character-editor'
-    });
+    // Auto-save function
+    function autoSave() {
+        const editors = ['character-editor', 'scene-editor', 'story-editor', 'extra-editor', 'rolls-editor'];
+        const saveData = {};
+        
+        editors.forEach(editor => {
+            if (tinymce.get(editor)) {
+                saveData[editor] = tinymce.get(editor).getContent();
+            }
+        });
 
-    tinymce.init({
-        ...editorConfig,
-        selector: '#scene-editor'
-    });
-
-    tinymce.init({
-        ...editorConfig,
-        selector: '#story-editor'
-    });
-
-    tinymce.init({
-        ...editorConfig,
-        selector: '#extra-editor'
-    }).then(() => {
-        // Load most recent auto-save after all editors are initialized
-        const sessions = JSON.parse(localStorage.getItem('motif-sessions') || '{}');
-        if (sessions['Auto Save']) {
-            loadSession('Auto Save');
+        try {
+            localStorage.setItem('motif-oracle-auto-save', JSON.stringify(saveData));
+            console.log('Auto-save completed');
+        } catch (error) {
+            console.error('Error during auto-save:', error);
         }
-    });
+    }
+
+    // Set up auto-save interval
+    setInterval(autoSave, 30000); // Auto-save every 30 seconds
+
+    // Load latest auto-save if it exists
+    const autoSaveKey = 'motif-oracle-auto-save';
+    const savedData = localStorage.getItem(autoSaveKey);
+    if (savedData) {
+        try {
+            const data = JSON.parse(savedData);
+            // Only load if there's actual content
+            if (Object.values(data).some(content => content.trim() !== '')) {
+                Object.entries(data).forEach(([editor, content]) => {
+                    if (tinymce.get(editor)) {
+                        tinymce.get(editor).setContent(content);
+                    }
+                });
+                console.log('Auto-save loaded successfully');
+            }
+        } catch (error) {
+            console.error('Error loading auto-save:', error);
+        }
+    }
 
     // Core dice rolling function with animation
     function rollDice() {
@@ -447,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Start autosave when the page loads
-    startAutoSave();
+    // startAutoSave();
 
     // Load saved content from localStorage
     const savedContent = localStorage.getItem('motifOracle');
@@ -494,4 +519,191 @@ document.addEventListener('DOMContentLoaded', () => {
             notebookTabContent.style.display = 'block';
         }
     }
+
+    // Update print preview content
+    function updatePrintPreview() {
+        // Get content from TinyMCE editors
+        const sections = ['character', 'scene', 'story', 'extra', 'rolls'];
+        sections.forEach(section => {
+            const content = tinymce.get(`${section}-editor`).getContent();
+            // Clean up empty paragraphs that TinyMCE might add
+            const cleanContent = content.replace(/<p>(\s|&nbsp;)*<\/p>/g, '');
+            document.getElementById(`print-${section}`).innerHTML = cleanContent;
+        });
+    }
+
+    // Convert HTML to plain text
+    function htmlToText(html) {
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        return temp.textContent || temp.innerText || '';
+    }
+
+    // Convert HTML to Markdown-like text
+    function htmlToMarkdown(html) {
+        const text = htmlToText(html);
+        // Simple markdown conversion - you might want to enhance this
+        return text.split('\n').map(line => line.trim()).join('\n\n');
+    }
+
+    // Generate session report
+    function generateReport(format) {
+        const character = tinymce.get('character-editor').getContent();
+        const scene = tinymce.get('scene-editor').getContent();
+        const story = tinymce.get('story-editor').getContent();
+        const extra = tinymce.get('extra-editor').getContent();
+        const rolls = tinymce.get('rolls-editor').getContent();
+        
+        let content = '';
+        const timestamp = new Date().toLocaleString();
+        
+        switch (format) {
+            case 'txt':
+                content = `MOTIF ORACLE NOTEBOOK - SESSION REPORT
+Generated: ${timestamp}
+
+CHARACTER
+${htmlToText(character)}
+
+SCENE NOTES
+${htmlToText(scene)}
+
+STORY SO FAR
+${htmlToText(story)}
+
+EXTRA NOTES
+${htmlToText(extra)}
+
+ORACLE ROLLS
+${htmlToText(rolls)}`;
+                break;
+                
+            case 'md':
+                content = `# MOTIF ORACLE NOTEBOOK - SESSION REPORT
+*Generated: ${timestamp}*
+
+## CHARACTER
+${htmlToMarkdown(character)}
+
+## SCENE NOTES
+${htmlToMarkdown(scene)}
+
+## STORY SO FAR
+${htmlToMarkdown(story)}
+
+## EXTRA NOTES
+${htmlToMarkdown(extra)}
+
+## ORACLE ROLLS
+${htmlToMarkdown(rolls)}`;
+                break;
+                
+            case 'html':
+                content = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Motif Oracle Notebook - Session Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        h1, h2 { color: #8b0000; }
+        h2 { border-bottom: 2px solid #8b0000; padding-bottom: 0.5rem; }
+        .timestamp { font-style: italic; color: #666; }
+        .section { margin: 2rem 0; }
+    </style>
+</head>
+<body>
+    <h1>MOTIF ORACLE NOTEBOOK - SESSION REPORT</h1>
+    <p class="timestamp">Generated: ${timestamp}</p>
+    
+    <div class="section">
+        <h2>CHARACTER</h2>
+        ${character}
+    </div>
+    
+    <div class="section">
+        <h2>SCENE NOTES</h2>
+        ${scene}
+    </div>
+    
+    <div class="section">
+        <h2>STORY SO FAR</h2>
+        ${story}
+    </div>
+    
+    <div class="section">
+        <h2>EXTRA NOTES</h2>
+        ${extra}
+    </div>
+    
+    <div class="section">
+        <h2>ORACLE ROLLS</h2>
+        ${rolls}
+    </div>
+</body>
+</html>`;
+                break;
+        }
+        
+        return content;
+    }
+
+    // Print button handler
+    document.getElementById('print-session-btn').addEventListener('click', () => {
+        const modal = showModal('Print Session', `
+            <div class="modal-body">
+                <input type="text" id="print-session-name" placeholder="Enter session name">
+                <div class="format-select">
+                    <label>
+                        <input type="radio" name="format" value="txt" checked> Plain Text
+                    </label>
+                    <label>
+                        <input type="radio" name="format" value="md"> Markdown
+                    </label>
+                    <label>
+                        <input type="radio" name="format" value="html"> HTML
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="print-confirm">Export</button>
+                <button class="close-modal">Cancel</button>
+            </div>
+        `);
+
+        modal.querySelector('#print-confirm').onclick = async () => {
+            const sessionName = modal.querySelector('#print-session-name').value.trim();
+            const format = modal.querySelector('input[name="format"]:checked').value;
+            
+            if (sessionName) {
+                const content = generateReport(format);
+                const extension = format === 'md' ? 'md' : format === 'html' ? 'html' : 'txt';
+                
+                const zip = new JSZip();
+                zip.file(`${sessionName}.${extension}`, content);
+                
+                const blob = await zip.generateAsync({type: "blob"});
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MotifReport-${sessionName}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                document.body.removeChild(modal);
+            }
+        };
+    });
+
+    // Update print preview when switching to the tab
+    document.querySelector('.main-tab[data-tab="print"]').addEventListener('click', updatePrintPreview);
 });
