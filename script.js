@@ -143,31 +143,41 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('dice3')
         ];
         
-        // Generate rolls first
-        const rolls = dice.map(() => Math.floor(Math.random() * 6));
+        // Generate final rolls first
+        const finalRolls = dice.map(() => Math.floor(Math.random() * 6));
         
         // Start rolling animation
         dice.forEach(die => {
             die.classList.add('rolling');
         });
         
-        // Generate random roll duration between 1 and 3 seconds
-        const rollDuration = Math.random() * 2000 + 1000; // 1000-3000ms
+        // Generate random roll duration between 1.5 and 2.5 seconds
+        const rollDuration = Math.random() * 1000 + 1500; // 1500-2500ms
+        
+        // Show random numbers during animation
+        const animationInterval = setInterval(() => {
+            dice.forEach(die => {
+                if (die.classList.contains('rolling')) {
+                    die.textContent = Math.floor(Math.random() * 6) + 1;
+                }
+            });
+        }, 100); // Update numbers every 100ms
         
         return new Promise(resolve => {
             // Stop rolling animation after the random duration
             setTimeout(() => {
+                clearInterval(animationInterval);
                 dice.forEach((die, index) => {
                     die.classList.remove('rolling');
-                    die.textContent = rolls[index] + 1;
+                    die.textContent = finalRolls[index] + 1;
                     
                     // Add a brief scaling effect when the die lands
-                    die.style.transform = 'scale(1.1)';
+                    die.style.transform = 'scale(1.2)';
                     setTimeout(() => {
                         die.style.transform = 'scale(1)';
-                    }, 100);
+                    }, 150);
                 });
-                resolve(rolls);
+                resolve(finalRolls);
             }, rollDuration);
         });
     }
