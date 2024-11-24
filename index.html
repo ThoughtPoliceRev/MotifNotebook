@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motif Oracle</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="motif-ui.css">
     <script src="lib/tinymce/tinymce.min.js"></script>
     <script src="lib/jszip/jszip.min.js"></script>
 </head>
@@ -24,6 +24,7 @@
             <div class="main-tabs">
                 <div class="main-tab active" data-tab="notebook">Notebook</div>
                 <div class="main-tab" data-tab="print">Print Preview</div>
+                <div class="main-tab" data-tab="pdf">PDF Viewer</div>
                 <div class="main-tab" data-tab="about">About</div>
             </div>
             
@@ -36,6 +37,7 @@
                         <div class="notebook-tab" data-tab="scene">Scene Notes</div>
                         <div class="notebook-tab" data-tab="story">Story So Far</div>
                         <div class="notebook-tab" data-tab="extra">Extra Notes</div>
+                        <div class="notebook-tab" data-tab="game-rolls">Game Rolls</div>
                     </nav>
                     <div class="notebook-content">
                         <div id="oracle-tab" class="notebook-tab-content active">
@@ -86,31 +88,89 @@
                                 <div id="roll-results" class="roll-results"></div>
                             </div>
                             <div class="editor-container">
-                                <textarea id="rolls-editor"></textarea>
+                                <textarea id="rolls-editor" class="tinymce-editor"></textarea>
                             </div>
                         </div>
                         <div id="character-tab" class="notebook-tab-content">
                             <h3>Character</h3>
                             <div class="editor-container">
-                                <textarea id="character-editor"></textarea>
+                                <textarea id="character-editor" class="tinymce-editor"></textarea>
                             </div>
                         </div>
                         <div id="scene-tab" class="notebook-tab-content">
                             <h3>Scene Notes</h3>
                             <div class="editor-container">
-                                <textarea id="scene-editor"></textarea>
+                                <textarea id="scene-editor" class="tinymce-editor"></textarea>
                             </div>
                         </div>
                         <div id="story-tab" class="notebook-tab-content">
                             <h3>Story So Far</h3>
                             <div class="editor-container">
-                                <textarea id="story-editor"></textarea>
+                                <textarea id="story-editor" class="tinymce-editor"></textarea>
                             </div>
                         </div>
                         <div id="extra-tab" class="notebook-tab-content">
                             <h3>Extra Notes</h3>
                             <div class="editor-container">
-                                <textarea id="extra-editor"></textarea>
+                                <textarea id="extra-editor" class="tinymce-editor"></textarea>
+                            </div>
+                        </div>
+                        <div id="game-rolls-tab" class="notebook-tab-content">
+                            <div class="game-roll-controls">
+                                <div class="input-section">
+                                    <label for="game-action-input">DESCRIBE YOUR ACTION</label>
+                                    <div class="input-group">
+                                        <input type="text" id="game-action-input" class="full-width" placeholder="What are you trying to do?">
+                                        <button id="game-roll-btn" class="roll-btn">Roll</button>
+                                    </div>
+                                </div>
+                                <div class="roll-controls-container">
+                                    <div class="roll-controls-labels">
+                                        <label for="num-dice-select"># OF DICE</label>
+                                        <label for="dice-type-select">DICE TYPE</label>
+                                        <label for="modifier-type-select">MODIFIER</label>
+                                    </div>
+                                    <div class="roll-controls-row">
+                                        <select id="num-dice-select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                        <select id="dice-type-select">
+                                            <option value="d4">d4</option>
+                                            <option value="d6">d6</option>
+                                            <option value="d8">d8</option>
+                                            <option value="d10">d10</option>
+                                            <option value="d12">d12</option>
+                                            <option value="d20">d20</option>
+                                        </select>
+                                        <div class="modifier-group">
+                                            <select id="modifier-type-select">
+                                                <option value="+">+</option>
+                                                <option value="-">-</option>
+                                            </select>
+                                            <input type="number" id="modifier-value" placeholder="0" min="0" max="99">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="game-roll-results" class="roll-results"></div>
+
+                            <div class="preview-panel">
+                                <div class="preview-header">
+                                    <h3>Roll History Preview</h3>
+                                </div>
+                                <div class="preview-content">
+                                    <div id="rolls-preview" class="preview-scroll-content"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,6 +204,11 @@
                         <div id="print-rolls"></div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- PDF Viewer Tab -->
+            <div id="pdf-tab" class="main-tab-content">
+                <div id="pdf-viewer" class="pdf-viewer"></div>
             </div>
             
             <!-- About Tab -->
@@ -289,6 +354,11 @@
         Session saved successfully!
     </div>
     
-    <script src="script.js"></script>
+    <script src="motif-notebook.js"></script>
+    <script src="lib/pdfium/memory_manager.js"></script>
+    <script src="lib/pdfium/setup_pdfium.js"></script>
+    <script src="lib/pdfium/pdfium.js"></script>
+    <script src="lib/pdfium/pdfium_wrapper.js"></script>
+    <script src="pdf-viewer.js"></script>
 </body>
 </html>
