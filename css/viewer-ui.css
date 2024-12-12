@@ -1,0 +1,324 @@
+/**
+ * PDF Viewer Component Styles
+ * 
+ * This stylesheet defines the visual appearance and layout for the PDF viewer component.
+ * It provides a clean, modern interface for viewing and interacting with PDF documents.
+ * 
+ * Design Features:
+ * - Responsive toolbar with scrolling support
+ * - Custom scrollbar styling
+ * - Flexible layout using CSS Grid and Flexbox
+ * - Touch-friendly controls
+ * - High contrast for accessibility
+ * - Smooth transitions and hover effects
+ * 
+ * Components:
+ * - Toolbar with navigation controls
+ * - Page navigation with direct input
+ * - Zoom controls with presets and custom input
+ * - Rotation controls
+ * - PDF canvas container with centered content
+ * 
+ * @version 1.0
+ */
+
+/* Variables */
+:root {
+    --viewer-bg-color: #f5f5f5;
+    --toolbar-bg-color: #e6dec6 !important;
+    --border-color: #ddd;
+    --hover-bg-color: #f0f0f0;
+    --disabled-opacity: 0.5;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --button-text-color: #333;
+    --toolbar-height: 96px; /* Doubled for two rows */
+    --divider-color: rgba(0, 0, 0, 0.2);
+}
+
+/* PDF Viewer Container */
+.pdf-viewer-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--viewer-bg-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Toolbar Styles */
+.pdf-toolbar {
+    display: flex;
+    flex-direction: column !important;
+    padding: 8px;
+    background: var(--toolbar-bg-color);
+    border-bottom: 1px solid var(--border-color);
+    gap: 8px;
+    min-height: var(--toolbar-height);
+}
+
+/* Toolbar Rows */
+.pdf-toolbar-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-height: 40px;
+    padding: 0 16px;
+}
+
+.pdf-toolbar-row::-webkit-scrollbar {
+    height: 8px;
+}
+
+.pdf-toolbar-row::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pdf-toolbar-row::-webkit-scrollbar-thumb {
+    background: var(--divider-color);
+    border-radius: 4px;
+}
+
+.pdf-toolbar-row::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Control Groups */
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    padding: 0 16px;
+}
+
+.control-group:not(:last-child)::after {
+    content: '|';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: var(--divider-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.pdf-toolbar button {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--button-text-color);
+    min-width: 32px;
+    height: 32px;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pdf-toolbar button:hover {
+    background: var(--hover-bg-color);
+    border-color: #ccc;
+}
+
+.pdf-toolbar button:disabled {
+    opacity: var(--disabled-opacity);
+    cursor: not-allowed;
+}
+
+/* Page Navigation */
+.page-nav-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-input {
+    width: 50px;
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.page-info {
+    margin: 0 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--button-text-color);
+}
+
+/* Zoom Controls */
+.zoom-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.zoom-select {
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    width: 90px;
+    background: var(--toolbar-bg-color);
+    cursor: pointer;
+}
+
+/* Custom Zoom Controls */
+.custom-zoom-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+}
+
+.custom-zoom-input {
+    width: 60px;
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: right;
+}
+
+.custom-zoom-input::-webkit-inner-spin-button {
+    opacity: 1;
+    height: 24px;
+}
+
+.custom-zoom-container button {
+    padding: 6px 8px;
+    min-width: 40px;
+}
+
+/* Rotation Controls */
+.rotate-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 12px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 12px;
+}
+
+.rotate-container button {
+    font-size: 18px;
+    padding: 6px 10px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* PDF Canvas Container */
+.pdf-canvas-container {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--viewer-bg-color);
+    height: calc(100vh - var(--toolbar-height));
+    min-height: 0;
+    position: relative;
+}
+
+.pdf-canvas-container canvas {
+    box-shadow: 0 2px 10px var(--shadow-color);
+    background: white;
+    margin: auto;
+}
+
+/* Search Container (for future implementation) */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-input {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-results {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Text Layer */
+.textLayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    opacity: 0.2;
+    line-height: 1.0;
+    margin: auto;
+}
+
+.textLayer > span {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    transform-origin: 0% 0%;
+}
+
+.textLayer .highlight {
+    background-color: rgba(255, 255, 0, 0.4);
+    border-radius: 2px;
+    padding: 1px;
+}
+
+.textLayer .highlight.selected {
+    background-color: rgb(0, 100, 0);
+}
+
+.textLayer ::selection { 
+    background: rgb(0, 0, 255, 0.3);
+}
+
+/* Loading and Error States */
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: #666;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 16px 24px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.error-message {
+    color: #d32f2f;
+    padding: 16px;
+    text-align: center;
+    background: #ffebee;
+    border: 1px solid #ffcdd2;
+    border-radius: 4px;
+    margin: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+}

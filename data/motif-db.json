@@ -1,0 +1,40 @@
+{
+    "dropdowns": {
+        "select1": {
+            "label": "Answer Type",
+            "diceNumber": "1"
+        },
+        "select2": {
+            "label": "Modifier",
+            "diceNumber": "2"
+        },
+        "select3": {
+            "label": "Context",
+            "diceNumber": "3"
+        }
+    },
+    "diceInterpretations": {
+        "1": {
+            "Plain": ["No", "No", "No", "Yes", "Yes", "Yes"],
+            "Mixed": ["No", "No", "Mixed or Maybe", "Mixed or Maybe", "Yes", "Yes"]
+        },
+        "2": {
+            "Wrinkle": ["But", "But", "Plain Answer", "Plain Answer", "And", "And"],
+            "Certainty": ["Uncertain/Very Weak", "Some Doubt/Fairly Weak", "Average Doubt", "Pretty Middling", "Fairly Certain/Strong", "Very Certain/Very Strong"]
+        },
+        "3": {
+            "Activity": ["None", "Low", "Moderate", "Moderate", "High", "Very High"],
+            "Advantage": ["Very Disadvantageous", "Disadvantageous", "Neutral", "Neutral", "Advantageous", "Very Advantageous"],
+            "Attention": ["Completely Ignored", "Overlooked", "Normal Notice", "Normal Notice", "Extra Attention", "Completely Noticed"],
+            "Disposition": ["Hostile", "Unfriendly", "Neutral", "Neutral", "Friendly", "Very Friendly"],
+            "Impression": ["Very Negative", "Negative", "Neutral", "Neutral", "Positive", "Very Positive"],
+            "Progress": ["Major Setback", "Minor Setback", "As Expected", "As Expected", "Extra Progress", "Breakthrough"],
+            "Safety": ["Very Dangerous", "Dangerous", "Normal Risk", "Normal Risk", "Safe", "Very Safe"],
+            "Supernatural": ["None", "Trace", "Low", "Modest", "Strong", "Overwhelming"],
+            "Utility": ["Useless", "Limited Use", "Somewhat Useful", "Somewhat Useful", "Very Useful", "Essential"],
+            "Value": ["Worthless", "Low Value", "Average", "Average", "Valuable", "Priceless"],
+            "Weird": ["Very Mundane", "Normal", "Notable", "Slightly Odd", "Strange", "Very Weird"],
+            "YOUR CHOICE": ["None/Complete Opposite", "Little/Opposite", "Weak/Mildly Contrary", "Average/Modest", "Notable/Strong", "Extreme/Overwhelming"]
+        }
+    }
+}

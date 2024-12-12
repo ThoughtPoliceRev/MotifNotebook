@@ -1,12 +1,48 @@
+<!--
+/**
+ * Motif Oracle Notebook
+ * 
+ * A comprehensive TTRPG (Table-Top Role-Playing Game) storytelling and note-taking application
+ * designed for solo roleplaying, game session tracking, and creative writing. The application
+ * implements the Motif system, a three-die oracle mechanism for generating narrative prompts
+ * and game outcomes.
+ * 
+ * Application Features:
+ * - Oracle System: Three-die system for generating narrative answers and context
+ * - Rich Text Editing: Full-featured note-taking across multiple categories
+ * - Session Management: Save, load, export, and import functionality
+ * - Game Tools: Dice rolling with various dice types and modifiers
+ * - PDF Viewing: Built-in PDF viewer for reference materials
+ * - Auto-Save: Automatic session saving every 30 seconds
+ * 
+ * Structure:
+ * - Main Tabs: Notebook, Print Preview, PDF Viewer, About
+ * - Notebook Sections: Oracle, Character, Scene Notes, Story So Far, Extra Notes, Game Rolls
+ * 
+ * Dependencies:
+ * - TinyMCE: Rich text editing
+ * - JSZip: Session import/export
+ * - PDF.js: PDF viewing capabilities
+ * 
+ * @version 1.0
+ * @license MIT
+ * @author Rev (ThoughtPolice)
+ */
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motif Oracle</title>
-    <link rel="stylesheet" href="motif-ui.css">
+    <link rel="stylesheet" href="css/motif-ui.css">
+    <link rel="stylesheet" href="css/viewer-ui.css">
     <script src="lib/tinymce/tinymce.min.js"></script>
     <script src="lib/jszip/jszip.min.js"></script>
+    <script src="lib/pdf.js/pdf.js"></script>
+    <script src="lib/pdf.js/pdf.worker.js"></script>
+    <link rel="stylesheet" href="lib/pdf.js/web/viewer.css">
 </head>
 <body>
     <div class="container">
@@ -395,11 +431,7 @@
         Session saved successfully!
     </div>
     
-    <script src="motif-notebook.js"></script>
-    <script src="lib/pdfium/memory_manager.js"></script>
-    <script src="lib/pdfium/setup_pdfium.js"></script>
-    <script src="lib/pdfium/pdfium.js"></script>
-    <script src="lib/pdfium/pdfium_wrapper.js"></script>
-    <script src="pdf-viewer.js"></script>
+    <script src="js/motif-notebook.js"></script>
+    <script src="js/pdf-viewer.js"></script>
 </body>
 </html>
