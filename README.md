@@ -88,6 +88,12 @@ If you find this tool useful, please consider supporting the developer:
 - [PayPal](https://paypal.me/tpipc)
 - [Credit/Debit Card](https://bit.ly/payrev)
 
+## WordPress Installation
+
+1. Upload the `motif-oracle-notebook` folder to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Add the notebook to any page or post using the shortcode: `[motif_oracle_notebook]`
+
 ## Contact
 
 - GitHub: [@ThoughtPoliceRev](https://github.com/ThoughtPoliceRev)
