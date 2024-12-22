@@ -19,6 +19,14 @@
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Prevent double initialization
+    if (window.motifNotebookInitialized) return;
+    window.motifNotebookInitialized = true;
+
+    // Show initial tabs
+    document.getElementById('notebook-tab').style.display = 'block';
+    document.getElementById('oracle-tab').style.display = 'block';
+
     // Dice interpretations - hardcoded values for simplicity
     const diceInterpretations = {
         "1": {
@@ -46,15 +54,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     // Main tab switching
-    document.querySelectorAll('.main-tab').forEach(tab => {
+    document.querySelectorAll('.motif-main-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             // Remove active class from all tabs
-            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.motif-main-tab').forEach(t => t.classList.remove('motif-active'));
             // Add active class to clicked tab
-            tab.classList.add('active');
+            tab.classList.add('motif-active');
             
             // Hide all tab content
-            document.querySelectorAll('.main-tab-content').forEach(content => {
+            document.querySelectorAll('.motif-main-tab-content').forEach(content => {
                 content.style.display = 'none';
             });
             
@@ -71,15 +79,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Notebook Tab Management
-    document.querySelectorAll('.notebook-tab').forEach(tab => {
+    document.querySelectorAll('.motif-notebook-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             // Remove active class from all tabs
-            document.querySelectorAll('.notebook-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.motif-notebook-tab').forEach(t => t.classList.remove('motif-active'));
             // Add active class to clicked tab
-            tab.classList.add('active');
+            tab.classList.add('motif-active');
             
             // Hide all tab content
-            document.querySelectorAll('.notebook-tab-content').forEach(content => {
+            document.querySelectorAll('.motif-notebook-tab-content').forEach(content => {
                 content.style.display = 'none';
             });
             
@@ -91,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initialize TinyMCE editors
     tinymce.init({
-        selector: '.tinymce-editor',
+        selector: '.motif-tinymce-editor',
         height: 500,
         menubar: false,
         plugins: [
@@ -108,11 +116,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         setup: function(editor) {
             editor.on('init', function() {
                 // Check if all editors are initialized
-                if (tinymce.get('rolls-editor') && 
-                    tinymce.get('character-editor') && 
-                    tinymce.get('scene-editor') && 
-                    tinymce.get('story-editor') && 
-                    tinymce.get('extra-editor')) {
+                if (tinymce.get('motif-rolls-editor') && 
+                    tinymce.get('motif-character-editor') && 
+                    tinymce.get('motif-scene-editor') && 
+                    tinymce.get('motif-story-editor') && 
+                    tinymce.get('motif-extra-editor')) {
                     
                     // First load any existing content
                     const sessions = JSON.parse(localStorage.getItem('motif-sessions') || '{}');
@@ -138,11 +146,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function startAutoSave() {
         // Verify all editors are ready
-        if (!tinymce.get('rolls-editor') || 
-            !tinymce.get('character-editor') || 
-            !tinymce.get('scene-editor') || 
-            !tinymce.get('story-editor') || 
-            !tinymce.get('extra-editor')) {
+        if (!tinymce.get('motif-rolls-editor') || 
+            !tinymce.get('motif-character-editor') || 
+            !tinymce.get('motif-scene-editor') || 
+            !tinymce.get('motif-story-editor') || 
+            !tinymce.get('motif-extra-editor')) {
             console.log('Editors not ready yet, not starting autosave');
             return;
         }
@@ -188,26 +196,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function getSessionData() {
-        return {
-            oracle: tinymce.get('rolls-editor').getContent(),
-            character: tinymce.get('character-editor').getContent(),
-            scene: tinymce.get('scene-editor').getContent(),
-            story: tinymce.get('story-editor').getContent(),
-            extra: tinymce.get('extra-editor').getContent(),
-            timestamp: new Date().toISOString()
-        };
+        const data = {};
+        ['rolls', 'character', 'scene', 'story', 'extra'].forEach(editor => {
+            const editorInstance = tinymce.get(`motif-${editor}-editor`);
+            if (editorInstance) {
+                data[editor] = editorInstance.getContent();
+            }
+        });
+        data.timestamp = new Date().toISOString();
+        return data;
     }
 
     function showAutoSaveNotification() {
         // Remove any existing notification
-        const existingNotification = document.querySelector('.auto-save-notification');
+        const existingNotification = document.querySelector('.motif-auto-save-notification');
         if (existingNotification) {
             document.body.removeChild(existingNotification);
         }
 
         // Create new notification
         const notification = document.createElement('div');
-        notification.className = 'auto-save-notification';
+        notification.className = 'motif-auto-save-notification';
         notification.textContent = 'AUTO SAVED';
         document.body.appendChild(notification);
 
@@ -252,8 +261,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Remove the old change-based save listeners
     ['rolls', 'character', 'scene', 'story', 'extra'].forEach(editor => {
-        if (tinymce.get(`${editor}-editor`)) {
-            tinymce.get(`${editor}-editor`).on('change', () => {
+        if (tinymce.get(`motif-${editor}-editor`)) {
+            tinymce.get(`motif-${editor}-editor`).on('change', () => {
                 // Trigger an auto-save on editor changes instead
                 clearTimeout(window.autoSaveTimeout);
                 window.autoSaveTimeout = setTimeout(() => {
@@ -265,7 +274,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Core dice rolling function with animation
     function rollDice() {
-        const dice = document.querySelectorAll('.dice');
+        const dice = document.querySelectorAll('.motif-dice');
         const results = [0, 0, 0]; // Initialize with 0s to track completion
         let diceFinished = 0;
         
@@ -342,9 +351,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Roll button handler
-    document.getElementById('roll-btn').addEventListener('click', async () => {
-        const rollBtn = document.getElementById('roll-btn');
-        const resultDiv = document.getElementById('roll-results');
+    document.getElementById('motif-roll-btn').addEventListener('click', async () => {
+        const rollBtn = document.getElementById('motif-roll-btn');
+        const resultDiv = document.getElementById('motif-roll-results');
         
         // Disable roll button during animation
         rollBtn.disabled = true;
@@ -358,7 +367,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const interpretation = generateInterpretation(results);
             
             // Format and display result
-            const question = document.getElementById('question-input').value.trim();
+            const question = document.getElementById('motif-question-input').value.trim();
             const now = new Date();
             const timeStr = now.toLocaleTimeString('en-US', { 
                 hour: 'numeric', 
@@ -368,7 +377,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             
             // Add to roll history
-            const editor = tinymce.get('rolls-editor');
+            const editor = tinymce.get('motif-rolls-editor');
             if (editor) {
                 const newRoll = `<p><em>[${timeStr}] - Oracle Roll</em><br><strong>Q:</strong> ${question || 'No question'}<br><strong>A:</strong> ${results.join(', ')} | ${interpretation}</p>`;
                 editor.setContent(editor.getContent() + newRoll);
@@ -376,7 +385,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 editor.selection.collapse(false);
                 
                 // Clear the question input after adding to log
-                document.getElementById('question-input').value = '';
+                document.getElementById('motif-question-input').value = '';
             }
             
             // Display result in the UI
@@ -399,9 +408,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Generate interpretation based on dice rolls
     function generateInterpretation(rolls) {
         try {
-            const select1 = document.getElementById('select1').value;
-            const select2 = document.getElementById('select2').value;
-            const select3 = document.getElementById('select3').value;
+            const select1 = document.getElementById('motif-select1').value;
+            const select2 = document.getElementById('motif-select2').value;
+            const select3 = document.getElementById('motif-select3').value;
             
             // Get interpretations for each die
             const die1Interpretation = diceInterpretations["1"][select1][rolls[0] - 1];
@@ -427,8 +436,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Only load if there's actual content
             if (Object.values(data).some(content => content.trim() !== '')) {
                 Object.entries(data).forEach(([editor, content]) => {
-                    if (tinymce.get(editor)) {
-                        tinymce.get(editor).setContent(content);
+                    if (tinymce.get(`motif-${editor}-editor`)) {
+                        tinymce.get(`motif-${editor}-editor`).setContent(content);
                     }
                 });
                 console.log('Auto-save loaded successfully');
@@ -439,9 +448,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Automatically show the first main tab and first notebook tab when the page loads
-    const firstMainTab = document.querySelector('.main-tab');
+    const firstMainTab = document.querySelector('.motif-main-tab');
     if (firstMainTab) {
-        firstMainTab.classList.add('active');
+        firstMainTab.classList.add('motif-active');
         const mainTabId = firstMainTab.dataset.tab;
         const mainTabContent = document.getElementById(`${mainTabId}-tab`);
         if (mainTabContent) {
@@ -449,9 +458,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    const firstNotebookTab = document.querySelector('.notebook-tab');
+    const firstNotebookTab = document.querySelector('.motif-notebook-tab');
     if (firstNotebookTab) {
-        firstNotebookTab.classList.add('active');
+        firstNotebookTab.classList.add('motif-active');
         const notebookTabId = firstNotebookTab.dataset.tab;
         const notebookTabContent = document.getElementById(`${notebookTabId}-tab`);
         if (notebookTabContent) {
@@ -462,12 +471,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Update print preview content
     function updatePrintPreview() {
         // Get content from TinyMCE editors
-        const sections = ['character', 'scene', 'story', 'extra', 'rolls'];
-        sections.forEach(section => {
-            const content = tinymce.get(`${section}-editor`).getContent();
+        const sections = ['character', 'scene', 'story', 'extra', 'rolls'].map(section => {
+            const editor = tinymce.get(`motif-${section}-editor`);
+            const content = editor.getContent();
             // Clean up empty paragraphs that TinyMCE might add
             const cleanContent = content.replace(/<p>(\s|&nbsp;)*<\/p>/g, '');
-            document.getElementById(`print-${section}`).innerHTML = cleanContent;
+            document.getElementById(`motif-print-${section}`).innerHTML = cleanContent;
         });
     }
 
@@ -487,11 +496,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Generate session report
     function generateReport(format) {
-        const character = tinymce.get('character-editor').getContent();
-        const scene = tinymce.get('scene-editor').getContent();
-        const story = tinymce.get('story-editor').getContent();
-        const extra = tinymce.get('extra-editor').getContent();
-        const rolls = tinymce.get('rolls-editor').getContent();
+        const character = tinymce.get('motif-character-editor').getContent();
+        const scene = tinymce.get('motif-scene-editor').getContent();
+        const story = tinymce.get('motif-story-editor').getContent();
+        const extra = tinymce.get('motif-extra-editor').getContent();
+        const rolls = tinymce.get('motif-rolls-editor').getContent();
         
         let content = '';
         const timestamp = new Date().toLocaleString();
@@ -594,9 +603,9 @@ ${htmlToMarkdown(rolls)}`;
     }
 
     // Print button handler
-    document.getElementById('print-session-btn').addEventListener('click', () => {
+    document.getElementById('motif-print-session-btn').addEventListener('click', () => {
         const modal = showModal('Print Session', `
-            <div class="modal-body">
+            <div class="motif-modal-body">
                 <input type="text" id="print-session-name" placeholder="Enter session name">
                 <div class="format-select">
                     <label>
@@ -610,9 +619,9 @@ ${htmlToMarkdown(rolls)}`;
                     </label>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="motif-modal-footer">
                 <button id="print-confirm">Export</button>
-                <button class="close-modal">Cancel</button>
+                <button class="motif-close-modal">Cancel</button>
             </div>
         `);
 
@@ -644,20 +653,20 @@ ${htmlToMarkdown(rolls)}`;
     });
 
     // Update print preview when switching to the tab
-    document.querySelector('.main-tab[data-tab="print"]').addEventListener('click', updatePrintPreview);
+    document.querySelector('.motif-main-tab[data-tab="print"]').addEventListener('click', updatePrintPreview);
 
     // Save Session functionality
-    const saveSessionBtn = document.getElementById('save-session-btn');
-    const saveSessionModal = document.getElementById('save-session-modal');
-    const saveSessionSelect = document.getElementById('save-session-select');
-    const newSaveInput = document.getElementById('new-save-input');
-    const sessionNameInput = document.getElementById('session-name-input');
-    const saveSessionOk = document.getElementById('save-session-ok');
-    const saveSessionCancel = document.getElementById('save-session-cancel');
-    const confirmModal = document.getElementById('confirm-modal');
-    const confirmYes = document.getElementById('confirm-yes');
-    const confirmNo = document.getElementById('confirm-no');
-    const successMessage = document.getElementById('success-message');
+    const saveSessionBtn = document.getElementById('motif-save-session-btn');
+    const saveSessionModal = document.getElementById('motif-save-session-modal');
+    const saveSessionSelect = document.getElementById('motif-save-session-select');
+    const newSaveInput = document.getElementById('motif-new-save-input');
+    const sessionNameInput = document.getElementById('motif-session-name-input');
+    const saveSessionOk = document.getElementById('motif-save-session-ok');
+    const saveSessionCancel = document.getElementById('motif-save-session-cancel');
+    const confirmModal = document.getElementById('motif-confirm-modal');
+    const confirmYes = document.getElementById('motif-confirm-yes');
+    const confirmNo = document.getElementById('motif-confirm-no');
+    const successMessage = document.getElementById('motif-success-message');
 
     function showSuccessMessage() {
         successMessage.style.display = 'block';
@@ -780,7 +789,7 @@ ${htmlToMarkdown(rolls)}`;
     });
 
     // Event Listeners for Session Management
-    document.getElementById('save-session-btn').addEventListener('click', () => {
+    document.getElementById('motif-save-session-btn').addEventListener('click', () => {
         updateSaveSessionSelect();
         saveSessionModal.style.display = 'block';
         if (saveSessionSelect.value === 'NEW_SAVE') {
@@ -792,7 +801,7 @@ ${htmlToMarkdown(rolls)}`;
         }
     });
 
-    document.getElementById('load-session-btn').addEventListener('click', () => {
+    document.getElementById('motif-load-session-btn').addEventListener('click', () => {
         const sessions = JSON.parse(localStorage.getItem('motif-sessions') || '{}');
         
         // Separate auto-saves and user saves
@@ -838,10 +847,10 @@ ${htmlToMarkdown(rolls)}`;
         `);
 
         // Add click handlers for session names and delete buttons
-        modal.querySelectorAll('.session-list li:not(.separator)').forEach(li => {
+        modal.querySelectorAll('.motif-session-list li:not(.separator)').forEach(li => {
             const sessionName = li.dataset.session;
-            const nameSpan = li.querySelector('.session-name');
-            const deleteBtn = li.querySelector('.delete-btn');
+            const nameSpan = li.querySelector('.motif-session-name');
+            const deleteBtn = li.querySelector('.motif-delete-btn');
 
             // Add hover effect to delete button
             deleteBtn.onmouseover = () => deleteBtn.style.color = '#dc3545';
@@ -859,7 +868,7 @@ ${htmlToMarkdown(rolls)}`;
                     deleteSession(sessionName);
                     document.body.removeChild(modal);
                     // Refresh the session list
-                    document.getElementById('load-session-btn').click();
+                    document.getElementById('motif-load-session-btn').click();
                 }
             };
         });
@@ -908,10 +917,10 @@ ${htmlToMarkdown(rolls)}`;
     async function confirmDeleteSession(sessionName) {
         return new Promise((resolve) => {
             const modal = showModal('Delete Session', `
-                <div class="modal-body">
+                <div class="motif-modal-body">
                     <p>Are you sure you want to delete "${sessionName}"? This cannot be undone.</p>
                 </div>
-                <div class="modal-footer" style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                <div class="motif-modal-footer" style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
                     <button id="delete-confirm" style="padding: 8px 16px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
                     <button id="delete-cancel" style="padding: 8px 16px; background-color: #f5f5f5; color: #333; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">Cancel</button>
                 </div>
@@ -962,12 +971,12 @@ ${htmlToMarkdown(rolls)}`;
     async function confirmLoadSession(sessionName) {
         return new Promise((resolve) => {
             const modal = showModal('Load Session', `
-                <div class="modal-body">
+                <div class="motif-modal-body">
                     <p>Are you sure you want to load "${sessionName}"? This will overwrite your current session.</p>
                 </div>
-                <div class="modal-footer">
+                <div class="motif-modal-footer">
                     <button id="load-confirm" class="primary">Load</button>
-                    <button class="close-modal">Cancel</button>
+                    <button class="motif-close-modal">Cancel</button>
                 </div>
             `);
 
@@ -976,7 +985,7 @@ ${htmlToMarkdown(rolls)}`;
                 resolve(true);
             };
 
-            modal.querySelector('.close-modal').onclick = () => {
+            modal.querySelector('.motif-close-modal').onclick = () => {
                 document.body.removeChild(modal);
                 resolve(false);
             };
@@ -994,11 +1003,11 @@ ${htmlToMarkdown(rolls)}`;
     function loadSession(sessionName, skipConfirmation = false) {
         return new Promise((resolve, reject) => {
             // Wait for all editors to be ready
-            if (!tinymce.get('rolls-editor') || 
-                !tinymce.get('character-editor') || 
-                !tinymce.get('scene-editor') || 
-                !tinymce.get('story-editor') || 
-                !tinymce.get('extra-editor')) {
+            if (!tinymce.get('motif-rolls-editor') || 
+                !tinymce.get('motif-character-editor') || 
+                !tinymce.get('motif-scene-editor') || 
+                !tinymce.get('motif-story-editor') || 
+                !tinymce.get('motif-extra-editor')) {
                 console.log('Editors not ready yet, retrying in 100ms');
                 setTimeout(() => loadSession(sessionName, skipConfirmation).then(resolve).catch(reject), 100);
                 return;
@@ -1017,11 +1026,11 @@ ${htmlToMarkdown(rolls)}`;
                     const sessions = JSON.parse(localStorage.getItem('motif-sessions') || '{}');
                     const data = sessions[sessionName];
                     if (data) {
-                        tinymce.get('rolls-editor').setContent(data.oracle || '');
-                        tinymce.get('character-editor').setContent(data.character || '');
-                        tinymce.get('scene-editor').setContent(data.scene || '');
-                        tinymce.get('story-editor').setContent(data.story || '');
-                        tinymce.get('extra-editor').setContent(data.extra || '');
+                        tinymce.get('motif-rolls-editor').setContent(data.rolls || '');
+                        tinymce.get('motif-character-editor').setContent(data.character || '');
+                        tinymce.get('motif-scene-editor').setContent(data.scene || '');
+                        tinymce.get('motif-story-editor').setContent(data.story || '');
+                        tinymce.get('motif-extra-editor').setContent(data.extra || '');
                         showNotification(`Session "${sessionName}" loaded successfully`);
                         resolve(true);
                     } else {
@@ -1039,23 +1048,20 @@ ${htmlToMarkdown(rolls)}`;
 
     function showModal(title, content) {
         const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.style.zIndex = '1000';  // Ensure modal appears on top
+        modal.classList.add('motif-modal');
         modal.innerHTML = `
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <div class="modal-header">
-                    <h3>${title}</h3>
+            <div class="motif-modal-content">
+                <div class="motif-modal-header">
+                    <h2>${title}</h2>
+                    <span class="motif-close-modal">&times;</span>
                 </div>
-                <div class="modal-body">
-                    ${content}
-                </div>
+                ${content}
             </div>
         `;
         document.body.appendChild(modal);
         modal.style.display = 'block';
 
-        const closeBtn = modal.querySelector('.close-modal');
+        const closeBtn = modal.querySelector('.motif-close-modal');
         closeBtn.onclick = () => {
             document.body.removeChild(modal);
         };
@@ -1084,7 +1090,7 @@ ${htmlToMarkdown(rolls)}`;
         const jsonFile = Object.values(zipContent.files)[0];
         const content = await jsonFile.async("string");
         const data = JSON.parse(content);
-        const sessionName = file.name.replace('.zip', '');
+        const sessionName = file.name.replace('.motif-zip', '');
         const sessions = JSON.parse(localStorage.getItem('motif-sessions') || '{}');
         sessions[sessionName] = data;
         localStorage.setItem('motif-sessions', JSON.stringify(sessions));
@@ -1093,7 +1099,7 @@ ${htmlToMarkdown(rolls)}`;
 
     function showNotification(message, type = 'success', duration = 3000) {
         const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
+        notification.className = `motif-notification ${type}`;
         notification.textContent = message;
         notification.style.position = 'fixed';
         notification.style.top = '20px';
@@ -1122,12 +1128,12 @@ ${htmlToMarkdown(rolls)}`;
     async function confirmLoadSession(sessionName) {
         return new Promise((resolve) => {
             const modal = showModal('Load Session', `
-                <div class="modal-body">
+                <div class="motif-modal-body">
                     <p>Are you sure you want to load "${sessionName}"? This will overwrite your current session.</p>
                 </div>
-                <div class="modal-footer">
+                <div class="motif-modal-footer">
                     <button id="load-confirm" class="primary">Load</button>
-                    <button class="close-modal">Cancel</button>
+                    <button class="motif-close-modal">Cancel</button>
                 </div>
             `);
 
@@ -1136,7 +1142,7 @@ ${htmlToMarkdown(rolls)}`;
                 resolve(true);
             };
 
-            modal.querySelector('.close-modal').onclick = () => {
+            modal.querySelector('.motif-close-modal').onclick = () => {
                 document.body.removeChild(modal);
                 resolve(false);
             };
@@ -1151,14 +1157,14 @@ ${htmlToMarkdown(rolls)}`;
         });
     }
 
-    document.getElementById('export-session-btn').addEventListener('click', () => {
+    document.getElementById('motif-export-session-btn').addEventListener('click', () => {
         const modal = showModal('Export Session', `
-            <div class="modal-body">
+            <div class="motif-modal-body">
                 <input type="text" id="export-name" placeholder="Enter session name">
             </div>
-            <div class="modal-footer">
+            <div class="motif-modal-footer">
                 <button id="export-confirm">Export</button>
-                <button class="close-modal">Cancel</button>
+                <button class="motif-close-modal">Cancel</button>
             </div>
         `);
 
@@ -1171,10 +1177,10 @@ ${htmlToMarkdown(rolls)}`;
         };
     });
 
-    document.getElementById('import-session-btn').addEventListener('click', () => {
+    document.getElementById('motif-import-session-btn').addEventListener('click', () => {
         const input = document.createElement('input');
         input.type = 'file';
-        input.accept = '.zip';
+        input.accept = '.motif-zip';
         input.onchange = async (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -1184,91 +1190,100 @@ ${htmlToMarkdown(rolls)}`;
         input.click();
     });
 
-    document.getElementById('new-session-btn').addEventListener('click', () => {
+    document.getElementById('motif-new-session-btn').addEventListener('click', () => {
         const modal = showModal('New Session', `
-            <div class="modal-body">
+            <div class="motif-modal-body">
                 <p>Warning: This will delete all unsaved session data. Are you sure you want to continue?</p>
             </div>
-            <div class="modal-footer">
+            <div class="motif-modal-footer">
                 <button id="new-confirm">Continue</button>
-                <button class="close-modal">Cancel</button>
+                <button class="motif-close-modal">Cancel</button>
             </div>
         `);
 
         modal.querySelector('#new-confirm').onclick = () => {
-            tinymce.get('rolls-editor').setContent('');
-            tinymce.get('character-editor').setContent('');
-            tinymce.get('scene-editor').setContent('');
-            tinymce.get('story-editor').setContent('');
-            tinymce.get('extra-editor').setContent('');
+            tinymce.get('motif-rolls-editor').setContent('');
+            tinymce.get('motif-character-editor').setContent('');
+            tinymce.get('motif-scene-editor').setContent('');
+            tinymce.get('motif-story-editor').setContent('');
+            tinymce.get('motif-extra-editor').setContent('');
             document.body.removeChild(modal);
         };
     });
 
     // Game roll functionality
     function rollGameDice(numDice, diceType, modifier = 0) {
-        const results = [];
-        const max = parseInt(diceType.substring(1));
+        const rolls = [];
         for (let i = 0; i < numDice; i++) {
-            results.push(Math.floor(Math.random() * max) + 1);
+            rolls.push(Math.floor(Math.random() * diceType) + 1);
         }
-        return results;
+        const total = rolls.reduce((sum, roll) => sum + roll, 0) + modifier;
+        
+        // Update the game roll results
+        const resultsDiv = document.getElementById('motif-game-roll-results');
+        resultsDiv.innerHTML = `
+            <div class="motif-roll-result">
+                <strong>Rolls:</strong> ${rolls.join(', ')}
+                ${modifier !== 0 ? `<br><strong>Modifier:</strong> ${modifier}` : ''}
+                <br><strong>Total:</strong> ${total}
+            </div>
+        `;
+        
+        return { rolls, total };
     }
 
     // Add game roll handler
-    document.getElementById('game-roll-btn')?.addEventListener('click', () => {
-        const action = document.getElementById('game-action-input').value.trim();
-        const numDice = parseInt(document.getElementById('num-dice-select').value);
-        const diceType = document.getElementById('dice-type-select').value;
-        const modifierType = document.getElementById('modifier-type-select').value;
-        const modifierValue = parseInt(document.getElementById('modifier-value').value || '0');
-        
-        const results = rollGameDice(numDice, diceType);
-        const sum = results.reduce((a, b) => a + b, 0);
-        const modifier = modifierType === '+' ? modifierValue : -modifierValue;
-        const total = sum + modifier;
-        
+    document.getElementById('motif-game-roll-btn')?.addEventListener('click', () => {
+        const action = document.getElementById('motif-game-action-input').value.trim();
+        const numDice = parseInt(document.getElementById('motif-num-dice-select').value);
+        const diceType = parseInt(document.getElementById('motif-dice-type-select').value);
+        const modifierType = parseInt(document.getElementById('motif-modifier-type-select').value);
+        const modifierValue = parseInt(document.getElementById('motif-modifier-value').value) || 0;
+        const modifier = modifierType + modifierValue;
+
+        const results = rollGameDice(numDice, diceType, modifier);
+        const total = results.total; // The total is already calculated in rollGameDice
+
         const now = new Date();
         const timeStr = now.toLocaleTimeString('en-US', { 
             hour: 'numeric', 
-            minute: '2-digit', 
-            second: '2-digit', 
-            hour12: true 
+            minute: 'numeric',
+            second: 'numeric'
         });
 
-        // Format the results string
-        let rollDetails = `${results.join(' + ')}`;
-        if (modifier !== 0) {
-            rollDetails += ` ${modifierType} ${Math.abs(modifier)}`;
-        }
-        rollDetails += ` = ${total}`;
+        // Format roll details
+        const rollDetails = results.rolls.length > 1 ? 
+            `[${results.rolls.join(' + ')}]${modifier !== 0 ? ` ${modifier >= 0 ? '+' : '-'} ${Math.abs(modifier)}` : ''} = ${total}` :
+            `${results.rolls[0]}${modifier !== 0 ? ` ${modifier >= 0 ? '+' : '-'} ${Math.abs(modifier)}` : ''} = ${total}`;
 
-        const actionText = action ? `<br><strong>Action:</strong> ${action}` : '';
-        const newRoll = `<p><em>[${timeStr}] - Game Roll</em>${actionText}<br><strong>Roll:</strong> ${numDice}${diceType} ${modifier !== 0 ? modifierType + Math.abs(modifier) : ''}<br><strong>Result:</strong> ${rollDetails}</p>`;
+        const newRoll = `<p><em>[${timeStr}] - Game Roll</em><br><strong>Action:</strong> ${action || 'No action specified'}<br><strong>Roll:</strong> ${numDice}d${diceType} ${modifier !== 0 ? (modifier > 0 ? '+' : '') + modifier : ''}<br><strong>Result:</strong> ${rollDetails}</p>`;
 
-        // Update live results
-        const gameRollResults = document.getElementById('game-roll-results');
+        // Display in preview
+        const gameRollResults = document.getElementById('motif-game-roll-results');
         gameRollResults.innerHTML = newRoll;
 
-        // Add to roll history
-        const editor = tinymce.get('rolls-editor');
+        // Add to roll history preview directly
+        const rollsPreview = document.getElementById('motif-rolls-preview');
+        if (rollsPreview) {
+            rollsPreview.innerHTML = newRoll + rollsPreview.innerHTML;
+        }
+
+        // Add to play journal (rolls editor) at the bottom
+        const editor = tinymce.get('motif-rolls-editor');
         if (editor) {
-            editor.setContent(editor.getContent() + newRoll);
-            editor.selection.select(editor.getBody(), true);
-            editor.selection.collapse(false);
-
-            // Update preview
-            const rollsPreview = document.getElementById('rolls-preview');
-            rollsPreview.innerHTML = editor.getContent();
+            const content = editor.getContent();
+            editor.setContent(content + newRoll);
         }
+
+        // Clear inputs
+        document.getElementById('motif-game-action-input').value = '';
+        document.getElementById('motif-modifier-value').value = '';
+        document.getElementById('motif-modifier-type-select').value = '0';
     });
 
-    // Sync preview with rolls editor
-    tinymce.get('rolls-editor')?.on('change', () => {
-        const rollsPreview = document.getElementById('rolls-preview');
-        const editor = tinymce.get('rolls-editor');
-        if (rollsPreview && editor) {
-            rollsPreview.innerHTML = editor.getContent();
-        }
-    });
+    // Initialize game rolls preview
+    const rollsPreview = document.getElementById('motif-rolls-preview');
+    if (rollsPreview) {
+        rollsPreview.innerHTML = ''; // Clear any existing content
+    }
 });

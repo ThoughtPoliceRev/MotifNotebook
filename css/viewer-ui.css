@@ -24,7 +24,7 @@
 
 /* Variables */
 :root {
-    --viewer-bg-color: #f5f5f5;
+    --viewer-bg-color: #dfdcd7;
     --toolbar-bg-color: #e6dec6 !important;
     --border-color: #ddd;
     --hover-bg-color: #f0f0f0;
@@ -35,12 +35,19 @@
     --divider-color: rgba(0, 0, 0, 0.2);
 }
 
+/* Force light mode for PDF viewer */
+body:not(.motif-dark) {
+    --viewer-bg-color: #dfdcd7 !important;
+    --toolbar-bg-color: #e6dec6 !important;
+    background-color: var(--viewer-bg-color) !important;
+}
+
 /* PDF Viewer Container */
 .pdf-viewer-container {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: var(--viewer-bg-color);
+    background: var(--viewer-bg-color) !important;
     border: 1px solid var(--border-color);
 }
 
@@ -321,4 +328,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 80%;
+}
+
+/* Override PDF.js dark mode media query */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --viewer-bg-color: #dfdcd7 !important;
+        --toolbar-bg-color: #e6dec6 !important;
+        --button-hover-color: rgba(0, 0, 0, .2) !important;
+        --button-hover-color2: rgba(0, 0, 0, .3) !important;
+        --button-active-color: rgba(0, 0, 0, .4) !important;
+    }
 }

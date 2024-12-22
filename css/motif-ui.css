@@ -14,9 +14,9 @@
  * - Game controls and input styling
  * 
  * Color Scheme:
- * - Primary: Deep Red (#8b0000)
- * - Background: Dark Gray (#1a1a1a)
- * - Content: Cream (#fffdf5)
+ * - Primary: Deep Red (#motif-8b0000)
+ * - Background: Dark Gray (#motif-1a1a1a)
+ * - Content: Cream (#motif-fffdf5)
  * - Accents: Various shades of cream and red
  * 
  * @version 1.0
@@ -24,39 +24,39 @@
 
 /* Base styles */
 :root {
-    --primary-color: #8b0000;
-    --secondary-color: #a00000;
-    --accent-color: #8b0000;
-    --text-color: #333333;
-    --background-color: #1a1a1a;
-    --content-background: #fffdf5;
-    --border-color: #8b0000;
-    --cream-light: #fff8e7;
-    --cream-medium: #fff3d4;
-    --cream-dark: #ffebc7;
+    --motif-primary-color: #8b0000;
+    --motif-secondary-color: #a00000;
+    --motif-accent-color: #8b0000;
+    --motif-text-color: #333333;
+    --motif-background-color: #1a1a1a;
+    --motif-content-background: #fffdf5;
+    --motif-border-color: #8b0000;
+    --motif-cream-light: #fff8e7;
+    --motif-cream-medium: #fff3d4;
+    --motif-cream-dark: #ffebc7;
 }
 
-body {
+.motif-body {
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--motif-background-color);
+    color: var(--motif-text-color);
 }
 
-.container {
+.motif-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px 20px;
 }
 
-header {
+.motif-header {
     margin-bottom: 20px;
     text-align: center;
 }
 
-h1 {
-    color: var(--primary-color);
+.motif-h1 {
+    color: var(--motif-primary-color);
     margin: 0 0 1rem 0;
     font-size: 2.5rem;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.7),
@@ -64,16 +64,16 @@ h1 {
     text-align: center;
 }
 
-.functionality-buttons {
+.motif-functionality-buttons {
     display: flex;
     gap: 10px;
     justify-content: center;
     margin-bottom: 15px;
 }
 
-.functionality-buttons button {
+.motif-functionality-buttons button {
     padding: 8px 15px;
-    background-color: var(--primary-color);
+    background-color: var(--motif-primary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -84,37 +84,64 @@ h1 {
     box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
 }
 
-.functionality-buttons button:hover {
-    background-color: var(--secondary-color);
+.motif-functionality-buttons button:hover {
+    background-color: var(--motif-secondary-color);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(139, 0, 0, 0.3);
 }
 
-.functionality-buttons button:active {
+.motif-functionality-buttons button:active {
     transform: translateY(0);
     box-shadow: 0 1px 2px rgba(139, 0, 0, 0.2);
 }
 
-.input-group {
+.motif-input-group {
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
     align-items: center;
 }
 
-#question-input {
-    flex: 1;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: var(--content-background);
+.motif-select, .motif-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--motif-border-color);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: var(--motif-cream-light);
 }
 
-#roll-btn {
+.motif-select-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.motif-select-group .motif-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--motif-border-color);
+    border-radius: 6px;
+    background-color: var(--motif-cream-light);
+    color: var(--motif-text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#motif-question-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--motif-border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--motif-content-background);
+}
+
+#motif-roll-btn {
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
-    color: var(--content-background);
+    background: var(--motif-primary-color);
+    color: var(--motif-content-background);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -126,19 +153,19 @@ h1 {
     min-width: 100px;
 }
 
-#roll-btn:hover {
-    background-color: var(--secondary-color);
+#motif-roll-btn:hover {
+    background-color: var(--motif-secondary-color);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(139, 0, 0, 0.3);
 }
 
-#roll-btn:active {
+#motif-roll-btn:active {
     transform: translateY(0);
     box-shadow: 0 1px 2px rgba(139, 0, 0, 0.2);
 }
 
 /* Main Tabs */
-.main-tabs {
+.motif-main-tabs {
     display: flex;
     gap: 2px;
     margin-bottom: 0;
@@ -146,60 +173,60 @@ h1 {
     z-index: 2;
 }
 
-.main-tab {
+.motif-main-tab {
     padding: 8px 16px;
-    background-color: var(--cream-medium);
-    border: 1px solid var(--border-color);
+    background-color: var(--motif-cream-medium);
+    border: 1px solid var(--motif-border-color);
     border-bottom: none;
     border-radius: 8px 8px 0 0;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
-.main-tab:hover {
-    background-color: var(--cream-light);
+.motif-main-tab:hover {
+    background-color: var(--motif-cream-light);
 }
 
-.main-tab.active {
-    background-color: var(--content-background);
+.motif-main-tab.motif-active {
+    background-color: var(--motif-content-background);
     position: relative;
 }
 
-.main-tab.active::after {
+.motif-main-tab.motif-active::after {
     content: '';
     position: absolute;
     bottom: -1px;
     left: 0;
     right: 0;
     height: 1px;
-    background-color: var(--content-background);
+    background-color: var(--motif-content-background);
 }
 
-.main-tab-content {
+.motif-main-tab-content {
     display: none;
 }
 
-.main-tab-content.active {
+.motif-main-tab-content.motif-active {
     display: block;
 }
 
-.main-tab-content {
-    background: var(--content-background);
+.motif-main-tab-content {
+    background: var(--motif-content-background);
     padding: 20px;
     border-radius: 0 0 8px 8px;
     margin-top: -1px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
 }
 
 /* Notebook Container */
-.notebook-container {
-    background: var(--content-background);
+.motif-notebook-container {
+    background: var(--motif-content-background);
     border-radius: 8px;
     padding: 0;
     margin-top: -1px;
 }
 
-.notebook-nav {
+.motif-notebook-nav {
     display: flex;
     gap: 2px;
     padding: 0 0.5rem;
@@ -208,10 +235,10 @@ h1 {
     margin: 0;
 }
 
-.notebook-tab {
+.motif-notebook-tab {
     padding: 8px 16px;
-    background-color: var(--cream-medium);
-    border: 1px solid var(--border-color);
+    background-color: var(--motif-cream-medium);
+    border: 1px solid var(--motif-border-color);
     border-bottom: none;
     border-radius: 8px 8px 0 0;
     cursor: pointer;
@@ -220,63 +247,63 @@ h1 {
     margin-bottom: -1px;
 }
 
-.notebook-tab:hover {
-    background-color: var(--cream-light);
+.motif-notebook-tab:hover {
+    background-color: var(--motif-cream-light);
 }
 
-.notebook-tab.active {
-    background-color: var(--content-background);
+.motif-notebook-tab.motif-active {
+    background-color: var(--motif-content-background);
     position: relative;
 }
 
-.notebook-tab.active::after {
+.motif-notebook-tab.motif-active::after {
     content: '';
     position: absolute;
     bottom: -1px;
     left: 0;
     right: 0;
     height: 1px;
-    background-color: var(--content-background);
+    background-color: var(--motif-content-background);
 }
 
-.notebook-content {
-    background-color: var(--content-background);
-    border: 1px solid var(--border-color);
+.motif-notebook-content {
+    background-color: var(--motif-content-background);
+    border: 1px solid var(--motif-border-color);
     border-radius: 0 0 8px 8px;
     padding: 20px;
     position: relative;
     z-index: 1;
 }
 
-.notebook-tab-content {
+.motif-notebook-tab-content {
     display: none;
-    background-color: var(--content-background);
+    background-color: var(--motif-content-background);
 }
 
-.notebook-tab-content h3 {
-    color: var(--primary-color);
+.motif-notebook-tab-content h3 {
+    color: var(--motif-primary-color);
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
     font-weight: 500;
 }
 
 /* Sub Tabs */
-.notebook-nav {
+.motif-notebook-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--motif-border-color);
     padding: 10px 10px 0;
-    background: var(--cream-medium);
+    background: var(--motif-cream-medium);
 }
 
-.notebook-tab-btn {
+.motif-notebook-tab-btn {
     padding: 6px 12px;
-    background: var(--cream-light);
-    border: 1px solid var(--border-color);
+    background: var(--motif-cream-light);
+    border: 1px solid var(--motif-border-color);
     border-bottom: none;
     border-radius: 5px 5px 0 0;
-    color: var(--text-color);
+    color: var(--motif-text-color);
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
@@ -286,28 +313,28 @@ h1 {
     min-width: min-content;
 }
 
-.notebook-tab-btn:hover {
-    background-color: var(--cream-medium);
+.motif-notebook-tab-btn:hover {
+    background-color: var(--motif-cream-medium);
     border-bottom-color: transparent;
 }
 
-.notebook-tab-btn.active {
-    background-color: var(--primary-color);
-    color: var(--content-background);
-    border-color: var(--primary-color);
+.motif-notebook-tab-btn.motif-active {
+    background-color: var(--motif-primary-color);
+    color: var(--motif-content-background);
+    border-color: var(--motif-primary-color);
     border-bottom-color: transparent;
 }
 
-.notebook-content {
+.motif-notebook-content {
     padding: 20px;
 }
 
-.notebook-tab-content {
+.motif-notebook-tab-content {
     display: none;
 }
 
-.notebook-tab-content h3 {
-    color: var(--primary-color);
+.motif-notebook-tab-content h3 {
+    color: var(--motif-primary-color);
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
     font-weight: 500;
@@ -315,27 +342,27 @@ h1 {
 
 /* Responsive adjustments */
 @media screen and (max-width: 600px) {
-    .notebook-nav {
+    .motif-notebook-nav {
         gap: 0.25rem;
         padding: 8px 8px 0;
     }
 
-    .notebook-tab-btn {
+    .motif-notebook-tab-btn {
         padding: 4px 8px;
         font-size: 0.85rem;
     }
 
-    .select-group {
+    .motif-select-group {
         grid-template-columns: 1fr;
         gap: 0.5rem;
     }
 
-    .dice-row {
+    .motif-dice-row {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
     }
 
-    .dice {
+    .motif-dice {
         width: 50px;
         height: 50px;
         font-size: 1.25rem;
@@ -343,85 +370,85 @@ h1 {
 }
 
 @media screen and (max-width: 400px) {
-    .notebook-nav {
+    .motif-notebook-nav {
         gap: 0.2rem;
         padding: 6px 6px 0;
     }
 
-    .notebook-tab-btn {
+    .motif-notebook-tab-btn {
         padding: 3px 6px;
         font-size: 0.8rem;
     }
 
-    .dice-row {
+    .motif-dice-row {
         grid-template-columns: 1fr;
     }
 }
 
 /* Oracle Controls */
-.oracle-controls {
-    background: var(--cream-medium);
+.motif-oracle-controls {
+    background: var(--motif-cream-medium);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
-.input-group {
+.motif-input-group {
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
     align-items: center;
 }
 
-select, input[type="text"] {
+.motif-select, .motif-input {
     width: 100%;
     padding: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 4px;
     margin-bottom: 10px;
-    background-color: var(--cream-light);
+    background-color: var(--motif-cream-light);
 }
 
-.select-group {
+.motif-select-group {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-top: 0.5rem;
 }
 
-.select-group select {
+.motif-select-group .motif-select {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 6px;
-    background-color: var(--cream-light);
-    color: var(--text-color);
+    background-color: var(--motif-cream-light);
+    color: var(--motif-text-color);
     font-size: 0.9rem;
     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.select-group select:hover {
-    border-color: var(--primary-color);
+.motif-select-group .motif-select:hover {
+    border-color: var(--motif-primary-color);
 }
 
-.select-group select:focus {
+.motif-select-group .motif-select:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--motif-primary-color);
     box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.1);
 }
 
-.select-container {
+.motif-select-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
 }
 
-.select-label {
+.motif-select-label {
     font-size: 0.85rem;
-    color: var(--text-color);
+    color: var(--motif-text-color);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 500;
@@ -429,7 +456,7 @@ select, input[type="text"] {
 }
 
 /* Dice Display */
-.dice-column {
+.motif-dice-column {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -437,7 +464,7 @@ select, input[type="text"] {
     flex: 1;
 }
 
-.dice-row {
+.motif-dice-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -445,31 +472,31 @@ select, input[type="text"] {
     justify-items: center;
 }
 
-.dice {
+.motif-dice {
     width: 60px;
     height: 60px;
-    background-color: var(--cream-light);
-    border: 2px solid var(--primary-color);
+    background-color: var(--motif-cream-light);
+    border: 2px solid var(--motif-primary-color);
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--motif-primary-color);
     cursor: pointer;
     transition: transform 0.2s;
     margin: 0 auto;
     perspective: 1000px;
-    --roll-distance: 0px;
+    --motif-roll-distance: 0px;
 }
 
-.dice.rolling {
+.motif-dice.motif-rolling {
     animation: roll 0.8s linear infinite, shake 0.4s linear infinite;
     transform-style: preserve-3d;
 }
 
-.dice.triple-roll {
+.motif-dice.triple-roll {
     animation: tripleRoll 3s ease-out forwards;
 }
 
@@ -511,13 +538,13 @@ select, input[type="text"] {
         transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0);
     }
     25% {
-        transform: rotateX(180deg) rotateY(180deg) rotateZ(90deg) translateX(var(--roll-distance));
+        transform: rotateX(180deg) rotateY(180deg) rotateZ(90deg) translateX(var(--motif-roll-distance));
     }
     50% {
-        transform: rotateX(360deg) rotateY(90deg) rotateZ(180deg) translateX(calc(var(--roll-distance) * -1));
+        transform: rotateX(360deg) rotateY(90deg) rotateZ(180deg) translateX(calc(var(--motif-roll-distance) * -1));
     }
     75% {
-        transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translateX(var(--roll-distance));
+        transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translateX(var(--motif-roll-distance));
     }
     100% {
         transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg) translateX(0);
@@ -526,26 +553,26 @@ select, input[type="text"] {
 
 @keyframes tripleRoll {
     0% { 
-        background-color: var(--primary-color);
-        color: var(--cream-light);
+        background-color: var(--motif-primary-color);
+        color: var(--motif-cream-light);
         transform: scale(1.1);
     }
     100% { 
-        background-color: var(--cream-light);
-        color: var(--primary-color);
+        background-color: var(--motif-cream-light);
+        color: var(--motif-primary-color);
         transform: scale(1);
     }
 }
 
-.dice {
+.motif-dice {
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 /* Roll Button */
-#roll-btn {
+#motif-roll-btn {
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
-    color: var(--content-background);
+    background: var(--motif-primary-color);
+    color: var(--motif-content-background);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -557,19 +584,46 @@ select, input[type="text"] {
     min-width: 100px;
 }
 
-#roll-btn:hover {
-    background-color: var(--secondary-color);
+#motif-roll-btn:hover {
+    background-color: var(--motif-secondary-color);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(139, 0, 0, 0.3);
 }
 
-#roll-btn:active {
+#motif-roll-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(139, 0, 0, 0.2);
+}
+
+/* Game Roll Button - Match Oracle Roll Button Style */
+#motif-game-roll-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--motif-primary-color);
+    color: var(--motif-content-background);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+    min-width: 100px;
+}
+
+#motif-game-roll-btn:hover {
+    background-color: var(--motif-secondary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(139, 0, 0, 0.3);
+}
+
+#motif-game-roll-btn:active {
     transform: translateY(0);
     box-shadow: 0 1px 2px rgba(139, 0, 0, 0.2);
 }
 
 /* Session List */
-.session-list {
+.motif-session-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -577,37 +631,37 @@ select, input[type="text"] {
     overflow-y: auto;
 }
 
-.session-list .auto-save {
-    background-color: var(--cream-light);
-    border-left: 3px solid var(--primary-color);
+.motif-session-list .motif-auto-save {
+    background-color: var(--motif-cream-light);
+    border-left: 3px solid var(--motif-primary-color);
     font-weight: 500;
 }
 
-.session-list .separator {
+.motif-session-list .motif-separator {
     height: 1px;
-    background-color: var(--primary-color);
+    background-color: var(--motif-primary-color);
     margin: 10px 0;
     pointer-events: none;
     opacity: 0.3;
 }
 
-.session-list li {
+.motif-session-list li {
     padding: 12px;
-    border-bottom: 1px solid var(--cream-medium);
+    border-bottom: 1px solid var(--motif-cream-medium);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.session-list li:hover:not(.separator) {
-    background-color: var(--cream-light);
+.motif-session-list li:hover:not(.motif-separator) {
+    background-color: var(--motif-cream-light);
 }
 
-.session-list li:active:not(.separator) {
-    background-color: var(--cream-medium);
+.motif-session-list li:active:not(.motif-separator) {
+    background-color: var(--motif-cream-medium);
 }
 
 /* Modal Styling */
-.modal {
+.motif-modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -618,19 +672,19 @@ select, input[type="text"] {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
-    background-color: var(--content-background);
+.motif-modal-content {
+    background-color: var(--motif-content-background);
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 8px;
     width: 80%;
     max-width: 500px;
     position: relative;
 }
 
-.close-modal {
-    color: #aaa;
+.motif-close-modal {
+    color: #motif-aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -638,143 +692,143 @@ select, input[type="text"] {
     line-height: 1;
 }
 
-.close-modal:hover,
-.close-modal:focus {
-    color: var(--text-color);
+.motif-close-modal:hover,
+.motif-close-modal:focus {
+    color: var(--motif-text-color);
     text-decoration: none;
     cursor: pointer;
 }
 
-.modal-header {
+.motif-modal-header {
     margin-bottom: 15px;
 }
 
-.modal-header h3 {
+.motif-modal-header h3 {
     margin: 0;
-    color: var(--primary-color);
+    color: var(--motif-primary-color);
 }
 
-.modal-body {
+.motif-modal-body {
     margin-bottom: 15px;
 }
 
-.modal-footer {
+.motif-modal-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
 /* About Content */
-.about-content {
+.motif-about-content {
     width: 95%;
     max-width: 800px;
     margin: 20px auto;
     line-height: 1.6;
     padding: 25px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.about-content h2 {
-    color: var(--primary-color);
+.motif-about-content h2 {
+    color: var(--motif-primary-color);
     margin-bottom: 1rem;
 }
 
-.about-content h3 {
-    color: var(--primary-color);
+.motif-about-content h3 {
+    color: var(--motif-primary-color);
     margin: 1.5rem 0 0.5rem;
 }
 
-.about-content ul,
-.about-content ol {
+.motif-about-content ul,
+.motif-about-content ol {
     margin-left: 1.5rem;
 }
 
-.about-content li {
+.motif-about-content li {
     margin-bottom: 0.5rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
+    .motif-container {
         padding: 10px;
     }
 
-    .functionality-buttons {
+    .motif-functionality-buttons {
         flex-wrap: wrap;
     }
 
-    .functionality-buttons button {
+    .motif-functionality-buttons button {
         flex: 1 1 auto;
     }
 }
 
 /* Footer */
-footer {
+.motif-footer {
     margin: 2rem 1rem 1rem 1rem;
     padding: 1rem;
     text-align: center;
-    color: var(--text-color);
-    border: 3px solid var(--primary-color);
-    background-color: var(--cream-medium);
+    color: var(--motif-text-color);
+    border: 3px solid var(--motif-primary-color);
+    background-color: var(--motif-cream-medium);
     border-radius: 24px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
 }
 
-footer p {
+.motif-footer p {
     margin: 0.5rem 0;
     line-height: 1.5;
 }
 
-footer a {
-    color: var(--primary-color);
+.motif-footer a {
+    color: var(--motif-primary-color);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
-footer a:hover {
-    color: var(--secondary-color);
+.motif-footer a:hover {
+    color: var(--motif-secondary-color);
     text-decoration: underline;
 }
 
 /* Roll Results */
-.roll-results {
+.motif-roll-results {
     margin: 1rem 0;
     padding: 1rem;
-    background-color: var(--cream-light);
-    border: 1px solid var(--border-color);
+    background-color: var(--motif-cream-light);
+    border: 1px solid var(--motif-border-color);
     border-radius: 8px;
     font-size: 1.1rem;
     line-height: 1.5;
     transition: opacity 0.3s ease;
 }
 
-.roll-results:empty {
+.motif-roll-results:empty {
     display: none;
 }
 
-.roll-results .question {
-    color: var(--text-color);
+.motif-roll-results .question {
+    color: var(--motif-text-color);
     font-style: italic;
     margin-bottom: 0.5rem;
 }
 
-.roll-results .answer {
-    color: var(--primary-color);
+.motif-roll-results .motif-answer {
+    color: var(--motif-primary-color);
     font-weight: 500;
 }
 
 /* Print Preview */
-.print-controls {
+.motif-print-controls {
     margin-bottom: 2rem;
     text-align: right;
 }
 
-.print-controls button {
+.motif-print-controls button {
     padding: 0.75rem 1.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--motif-primary-color);
     color: white;
     border: none;
     border-radius: 8px;
@@ -783,84 +837,84 @@ footer a:hover {
     transition: background-color 0.2s;
 }
 
-.print-controls button:hover {
-    background-color: var(--secondary-color);
+.motif-print-controls button:hover {
+    background-color: var(--motif-secondary-color);
 }
 
-.print-preview {
-    background-color: var(--cream-light);
-    border: 1px solid var(--border-color);
+.motif-print-preview {
+    background-color: var(--motif-cream-light);
+    border: 1px solid var(--motif-border-color);
     border-radius: 8px;
     padding: 2rem;
 }
 
-.preview-section {
+.motif-preview-section {
     margin-bottom: 2rem;
 }
 
-.preview-section:last-child {
+.motif-preview-section:last-child {
     margin-bottom: 0;
 }
 
-.preview-section h2 {
-    color: var(--primary-color);
+.motif-preview-section h2 {
+    color: var(--motif-primary-color);
     margin: 0 0 1rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--motif-primary-color);
 }
 
-.preview-section > div {
+.motif-preview-section > div {
     line-height: 1.6;
 }
 
-.preview-section > div p {
+.motif-preview-section > div p {
     margin: 0.5em 0;
 }
 
-.preview-section > div p:first-child {
+.motif-preview-section > div p:first-child {
     margin-top: 0;
 }
 
-.preview-section > div p:last-child {
+.motif-preview-section > div p:last-child {
     margin-bottom: 0;
 }
 
 /* Roll History Preview */
-.preview-panel {
+.motif-preview-panel {
     display: flex;
     flex-direction: column;
-    background: var(--content-background);
-    border: 1px solid var(--border-color);
+    background: var(--motif-content-background);
+    border: 1px solid var(--motif-border-color);
     border-radius: 8px;
     margin-top: 1rem;
     height: 100%;
     min-height: 200px;
 }
 
-.preview-header {
+.motif-preview-header {
     padding: 1rem;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--cream-light);
+    border-bottom: 1px solid var(--motif-border-color);
+    background: var(--motif-cream-light);
     border-radius: 8px 8px 0 0;
 }
 
-.preview-header h3 {
+.motif-preview-header h3 {
     margin: 0;
-    color: var(--text-color);
+    color: var(--motif-text-color);
     font-size: 1.1rem;
     font-weight: 500;
 }
 
-.preview-content {
+.motif-preview-content {
     flex: 1;
     padding: 1rem;
-    background: var(--content-background);
+    background: var(--motif-content-background);
     border-radius: 0 0 8px 8px;
     overflow: hidden;
     position: relative;
 }
 
-.preview-scroll-content {
+.motif-preview-scroll-content {
     position: absolute;
     top: 0;
     left: 0;
@@ -872,76 +926,76 @@ footer a:hover {
 }
 
 /* Game Rolls specific preview styling */
-#rolls-preview {
-    font-family: var(--content-font);
-    color: var(--text-color);
+#motif-rolls-preview {
+    font-family: var(--motif-content-font);
+    color: var(--motif-text-color);
     white-space: pre-wrap;
 }
 
-#rolls-preview p {
+#motif-rolls-preview p {
     margin: 0.5rem 0;
 }
 
-#rolls-preview em {
-    color: var(--text-color-light);
+#motif-rolls-preview em {
+    color: var(--motif-text-color-light);
     font-style: italic;
 }
 
 /* Save Session Modal Styles */
-.save-session-container {
+.motif-save-session-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.session-select {
+.motif-session-select {
     width: 100%;
     padding: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 4px;
-    background-color: var(--cream-light);
+    background-color: var(--motif-cream-light);
     font-size: 1rem;
     margin-bottom: 1rem;
 }
 
-.session-select option {
+.motif-session-select option {
     padding: 8px;
     font-size: 0.9rem;
 }
 
-.session-select option[value="NEW_SAVE"] {
+.motif-session-select option[value="NEW_SAVE"] {
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--motif-primary-color);
 }
 
-.session-select option[disabled] {
-    color: var(--border-color);
+.motif-session-select option[disabled] {
+    color: var(--motif-border-color);
     text-align: center;
-    border-bottom: 1px solid var(--border-color);
-    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--motif-border-color);
+    border-top: 1px solid var(--motif-border-color);
 }
 
-#new-save-input {
+#motif-new-save-input {
     margin-top: 0.5rem;
 }
 
-#session-name-input {
+#motif-session-name-input {
     width: 100%;
     padding: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 4px;
     font-size: 1rem;
-    background-color: var(--cream-light);
+    background-color: var(--motif-cream-light);
 }
 
-.modal-buttons {
+.motif-modal-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
     margin-top: 1rem;
 }
 
-.modal-btn {
+.motif-modal-btn {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
@@ -950,28 +1004,28 @@ footer a:hover {
     transition: all 0.2s ease;
 }
 
-.modal-btn:first-child {
-    background-color: var(--primary-color);
+.motif-modal-btn:first-child {
+    background-color: var(--motif-primary-color);
     color: white;
 }
 
-.modal-btn:last-child {
-    background-color: var(--cream-medium);
-    color: var(--text-color);
+.motif-modal-btn:last-child {
+    background-color: var(--motif-cream-medium);
+    color: var(--motif-text-color);
 }
 
-.modal-btn:hover {
+.motif-modal-btn:hover {
     opacity: 0.9;
     transform: translateY(-1px);
 }
 
 /* Success Message */
-.success-message {
+.motif-success-message {
     display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #4CAF50;
+    background-color: #motif-4CAF50;
     color: white;
     padding: 12px 24px;
     border-radius: 4px;
@@ -991,126 +1045,128 @@ footer a:hover {
     }
 }
 
-/* Auto-save notification styles */
-.auto-save-notification {
+/* Auto-save notification */
+.motif-auto-save-notification {
     position: fixed;
     top: 20px;
     left: 20px;
-    background-color: rgba(139, 0, 0, 0.75);
-    color: rgba(255, 255, 255, 0.75);
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 12px;
+    background-color: var(--motif-primary-color);
+    color: var(--motif-content-background);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    z-index: 1000;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
 }
 
-.auto-save-notification.show {
-    opacity: 0.75;
+.motif-auto-save-notification.show {
+    opacity: 0.33;
+    transform: translateY(0);
 }
 
 /* Game Roll Controls */
-.game-roll-controls {
+.motif-game-roll-controls {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.5rem;
-    background: var(--cream-light);
+    background: var(--motif-cream-light);
     border-radius: 8px;
-    border: 1px solid var(--cream-medium);
+    border: 1px solid var(--motif-cream-medium);
     margin-bottom: 1rem;
 }
 
-.game-roll-controls .input-section {
+.motif-game-roll-controls .motif-input-section {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.game-roll-controls .input-section label {
-    color: var(--text-color);
+.motif-game-roll-controls .motif-input-section label {
+    color: var(--motif-text-color);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
 }
 
-.game-roll-controls .input-group {
+.motif-game-roll-controls .motif-input-group {
     display: flex;
     gap: 0.5rem;
 }
 
-.game-roll-controls .input-group input {
+.motif-game-roll-controls .motif-input-group input {
     flex: 1;
     padding: 0.5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 4px;
     font-size: 1rem;
-    background-color: var(--content-background);
+    background-color: var(--motif-content-background);
     height: 2.5rem;
     box-sizing: border-box;
 }
 
-.roll-controls-container {
+.motif-roll-controls-container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.roll-controls-labels {
+.motif-roll-controls-labels {
     display: flex;
     gap: 0.5rem;
     padding: 0 0.5rem;
 }
 
-.roll-controls-labels label {
+.motif-roll-controls-labels label {
     flex: 1;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: var(--text-color);
+    color: var(--motif-text-color);
 }
 
-.roll-controls-row {
+.motif-roll-controls-row {
     display: flex;
     gap: 0.5rem;
     align-items: center;
 }
 
-.roll-controls-row select,
-.roll-controls-row input[type="number"] {
+.motif-roll-controls-row select,
+.motif-roll-controls-row input[type="number"] {
     padding: 0.5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--motif-border-color);
     border-radius: 4px;
     font-size: 0.9rem;
-    background-color: var(--content-background);
+    background-color: var(--motif-content-background);
     height: 2.5rem;
     box-sizing: border-box;
 }
 
-.roll-controls-row select {
+.motif-roll-controls-row select {
     flex: 1;
 }
 
-.modifier-group {
+.motif-modifier-group {
     flex: 1;
     display: flex;
     gap: 0.25rem;
     align-items: center;
 }
 
-.modifier-group select {
+.motif-modifier-group select {
     width: 60px;
 }
 
-.modifier-group input[type="number"] {
+.motif-modifier-group input[type="number"] {
     width: 80px;
 }
 
-#game-roll-btn.roll-btn {
+#motif-game-roll-btn.motif-roll-btn {
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
-    color: var(--content-background);
+    background: var(--motif-primary-color);
+    color: var(--motif-content-background);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -1122,13 +1178,13 @@ footer a:hover {
     min-width: 100px;
 }
 
-#game-roll-btn.roll-btn:hover {
-    background-color: var(--secondary-color);
+#motif-game-roll-btn.motif-roll-btn:hover {
+    background-color: var(--motif-secondary-color);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(139, 0, 0, 0.3);
 }
 
-#game-roll-btn.roll-btn:active {
+#motif-game-roll-btn.motif-roll-btn:active {
     transform: translateY(0);
     box-shadow: 0 1px 2px rgba(139, 0, 0, 0.2);
 }
@@ -1145,21 +1201,21 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 600px) {
-    .roll-controls-row {
+    .motif-roll-controls-row {
         flex-wrap: wrap;
         gap: 1rem;
     }
     
-    .roll-controls-labels {
+    .motif-roll-controls-labels {
         display: none;
     }
     
-    .modifier-group {
+    .motif-modifier-group {
         width: 100%;
     }
     
-    .modifier-group select,
-    .modifier-group input {
+    .motif-modifier-group select,
+    .motif-modifier-group input {
         flex: 1;
     }
 }

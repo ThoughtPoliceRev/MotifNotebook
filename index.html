@@ -35,76 +35,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motif Oracle</title>
+    <title>Motif Oracle Notebook</title>
     <link rel="stylesheet" href="css/motif-ui.css">
     <link rel="stylesheet" href="css/viewer-ui.css">
     <script src="lib/tinymce/tinymce.min.js"></script>
     <script src="lib/jszip/jszip.min.js"></script>
     <script src="lib/pdf.js/pdf.js"></script>
     <script src="lib/pdf.js/pdf.worker.js"></script>
-    <link rel="stylesheet" href="lib/pdf.js/web/viewer.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Motif Oracle Notebook</h1>
-            <div class="functionality-buttons">
-                <button id="save-session-btn">Save Session</button>
-                <button id="load-session-btn">Load Session</button>
-                <button id="export-session-btn">Export Session</button>
-                <button id="import-session-btn">Import Session</button>
-                <button id="new-session-btn">New Session</button>
+<body class="motif-body motif-dark">
+    <div class="motif-container motif-dark">
+        <header class="motif-header motif-dark">
+            <h1 class="motif-h1 motif-dark">Motif Oracle Notebook</h1>
+            <div class="motif-functionality-buttons motif-dark">
+                <button id="motif-save-session-btn" class="motif-button motif-dark">Save Session</button>
+                <button id="motif-load-session-btn" class="motif-button motif-dark">Load Session</button>
+                <button id="motif-export-session-btn" class="motif-button motif-dark">Export Session</button>
+                <button id="motif-import-session-btn" class="motif-button motif-dark">Import Session</button>
+                <button id="motif-new-session-btn" class="motif-button motif-dark">New Session</button>
             </div>
         </header>
-        <main>
-            <div class="main-tabs">
-                <div class="main-tab active" data-tab="notebook">Notebook</div>
-                <div class="main-tab" data-tab="print">Print Preview</div>
-                <div class="main-tab" data-tab="pdf">PDF Viewer</div>
-                <div class="main-tab" data-tab="about">About</div>
+        <main class="motif-main motif-dark">
+            <div class="motif-main-tabs motif-dark">
+                <div class="motif-main-tab motif-active motif-dark" data-tab="notebook">Notebook</div>
+                <div class="motif-main-tab motif-dark" data-tab="print">Print Preview</div>
+                <div class="motif-main-tab motif-dark" data-tab="pdf">PDF Viewer</div>
+                <div class="motif-main-tab motif-dark" data-tab="about">About</div>
             </div>
             
             <!-- Notebook Tab -->
-            <div id="notebook-tab" class="main-tab-content active">
-                <div class="notebook-container">
-                    <nav class="notebook-nav">
-                        <div class="notebook-tab active" data-tab="oracle">Oracle</div>
-                        <div class="notebook-tab" data-tab="character">Character</div>
-                        <div class="notebook-tab" data-tab="scene">Scene Notes</div>
-                        <div class="notebook-tab" data-tab="story">Story So Far</div>
-                        <div class="notebook-tab" data-tab="extra">Extra Notes</div>
-                        <div class="notebook-tab" data-tab="game-rolls">Game Rolls</div>
+            <div id="notebook-tab" class="motif-main-tab-content motif-active motif-dark">
+                <div class="motif-notebook-container motif-dark">
+                    <nav class="motif-notebook-nav motif-dark">
+                        <div class="motif-notebook-tab motif-active motif-dark" data-tab="oracle">Oracle</div>
+                        <div class="motif-notebook-tab motif-dark" data-tab="character">Character</div>
+                        <div class="motif-notebook-tab motif-dark" data-tab="scene">Scene Notes</div>
+                        <div class="motif-notebook-tab motif-dark" data-tab="story">Story So Far</div>
+                        <div class="motif-notebook-tab motif-dark" data-tab="extra">Extra Notes</div>
+                        <div class="motif-notebook-tab motif-dark" data-tab="game-rolls">Game Rolls</div>
                     </nav>
-                    <div class="notebook-content">
-                        <div id="oracle-tab" class="notebook-tab-content active">
-                            <div class="oracle-controls">
-                                <div class="input-group">
-                                    <input type="text" id="question-input" placeholder="Enter your question (optional)">
-                                    <button id="roll-btn">Roll</button>
+                    <div class="motif-notebook-content motif-dark">
+                        <div id="oracle-tab" class="motif-notebook-tab-content motif-active motif-dark">
+                            <div class="motif-oracle-controls motif-dark">
+                                <div class="motif-input-group motif-dark">
+                                    <input type="text" id="motif-question-input" class="motif-input motif-dark" placeholder="Enter your question (optional)">
+                                    <button id="motif-roll-btn" class="motif-button motif-dark">Roll</button>
                                 </div>
-                                <div class="dice-row">
-                                    <div class="dice" id="dice1">1</div>
-                                    <div class="dice" id="dice2">1</div>
-                                    <div class="dice" id="dice3">1</div>
+                                <div class="motif-dice-row motif-dark">
+                                    <div class="motif-dice motif-dark" id="motif-dice1">1</div>
+                                    <div class="motif-dice motif-dark" id="motif-dice2">1</div>
+                                    <div class="motif-dice motif-dark" id="motif-dice3">1</div>
                                 </div>
-                                <div class="select-group">
-                                    <div class="select-container">
-                                        <div class="select-label">Answer Type</div>
-                                        <select id="select1">
+                                <div class="motif-select-group motif-dark">
+                                    <div class="motif-select-container motif-dark">
+                                        <div class="motif-select-label motif-dark">Answer Type</div>
+                                        <select id="motif-select1" class="motif-select motif-dark">
                                             <option value="Plain">Plain Yes/No</option>
                                             <option value="Mixed">Mixed Yes/No/Maybe</option>
                                         </select>
                                     </div>
-                                    <div class="select-container">
-                                        <div class="select-label">Modifier</div>
-                                        <select id="select2">
+                                    <div class="motif-select-container motif-dark">
+                                        <div class="motif-select-label motif-dark">Modifier</div>
+                                        <select id="motif-select2" class="motif-select motif-dark">
                                             <option value="Wrinkle">Wrinkle</option>
                                             <option value="Certainty">Certainty</option>
                                         </select>
                                     </div>
-                                    <div class="select-container">
-                                        <div class="select-label">Context</div>
-                                        <select id="select3">
+                                    <div class="motif-select-container motif-dark">
+                                        <div class="motif-select-label motif-dark">Context</div>
+                                        <select id="motif-select3" class="motif-select motif-dark">
                                             <option value="Activity">Activity</option>
                                             <option value="Advantage">Advantage</option>
                                             <option value="Attention">Attention</option>
@@ -121,53 +120,56 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="roll-results" class="roll-results"></div>
+                                <div id="motif-roll-results" class="motif-roll-results motif-dark">
+                                    <div class="motif-question motif-dark"></div>
+                                    <div class="motif-answer motif-dark"></div>
+                                </div>
                             </div>
-                            <div class="editor-container">
-                                <textarea id="rolls-editor" class="tinymce-editor"></textarea>
-                            </div>
-                        </div>
-                        <div id="character-tab" class="notebook-tab-content">
-                            <h3>Character</h3>
-                            <div class="editor-container">
-                                <textarea id="character-editor" class="tinymce-editor"></textarea>
+                            <div class="motif-editor-container motif-dark">
+                                <textarea id="motif-rolls-editor" class="motif-tinymce-editor motif-dark"></textarea>
                             </div>
                         </div>
-                        <div id="scene-tab" class="notebook-tab-content">
-                            <h3>Scene Notes</h3>
-                            <div class="editor-container">
-                                <textarea id="scene-editor" class="tinymce-editor"></textarea>
+                        <div id="character-tab" class="motif-notebook-tab-content motif-dark">
+                            <h3 class="motif-h3 motif-dark">Character</h3>
+                            <div class="motif-editor-container motif-dark">
+                                <textarea id="motif-character-editor" class="motif-tinymce-editor motif-dark"></textarea>
                             </div>
                         </div>
-                        <div id="story-tab" class="notebook-tab-content">
-                            <h3>Story So Far</h3>
-                            <div class="editor-container">
-                                <textarea id="story-editor" class="tinymce-editor"></textarea>
+                        <div id="scene-tab" class="motif-notebook-tab-content motif-dark">
+                            <h3 class="motif-h3 motif-dark">Scene Notes</h3>
+                            <div class="motif-editor-container motif-dark">
+                                <textarea id="motif-scene-editor" class="motif-tinymce-editor motif-dark"></textarea>
                             </div>
                         </div>
-                        <div id="extra-tab" class="notebook-tab-content">
-                            <h3>Extra Notes</h3>
-                            <div class="editor-container">
-                                <textarea id="extra-editor" class="tinymce-editor"></textarea>
+                        <div id="story-tab" class="motif-notebook-tab-content motif-dark">
+                            <h3 class="motif-h3 motif-dark">Story So Far</h3>
+                            <div class="motif-editor-container motif-dark">
+                                <textarea id="motif-story-editor" class="motif-tinymce-editor motif-dark"></textarea>
                             </div>
                         </div>
-                        <div id="game-rolls-tab" class="notebook-tab-content">
-                            <div class="game-roll-controls">
-                                <div class="input-section">
-                                    <label for="game-action-input">DESCRIBE YOUR ACTION</label>
-                                    <div class="input-group">
-                                        <input type="text" id="game-action-input" class="full-width" placeholder="What are you trying to do?">
-                                        <button id="game-roll-btn" class="roll-btn">Roll</button>
+                        <div id="extra-tab" class="motif-notebook-tab-content motif-dark">
+                            <h3 class="motif-h3 motif-dark">Extra Notes</h3>
+                            <div class="motif-editor-container motif-dark">
+                                <textarea id="motif-extra-editor" class="motif-tinymce-editor motif-dark"></textarea>
+                            </div>
+                        </div>
+                        <div id="game-rolls-tab" class="motif-notebook-tab-content motif-dark">
+                            <div class="motif-game-roll-controls motif-dark">
+                                <div class="motif-input-section motif-dark">
+                                    <label for="motif-game-action-input" class="motif-label motif-dark">DESCRIBE YOUR ACTION</label>
+                                    <div class="motif-input-group motif-dark">
+                                        <input type="text" id="motif-game-action-input" class="motif-input motif-full-width motif-dark" placeholder="What are you trying to do?">
+                                        <button id="motif-game-roll-btn" class="motif-button motif-dark">Roll</button>
                                     </div>
                                 </div>
-                                <div class="roll-controls-container">
-                                    <div class="roll-controls-labels">
-                                        <label for="num-dice-select"># OF DICE</label>
-                                        <label for="dice-type-select">DICE TYPE</label>
-                                        <label for="modifier-type-select">MODIFIER</label>
+                                <div class="motif-roll-controls-container motif-dark">
+                                    <div class="motif-roll-controls-labels motif-dark">
+                                        <label for="motif-num-dice-select" class="motif-label motif-dark"># OF DICE</label>
+                                        <label for="motif-dice-type-select" class="motif-label motif-dark">DICE TYPE</label>
+                                        <label for="motif-modifier-type-select" class="motif-label motif-dark">MODIFIER</label>
                                     </div>
-                                    <div class="roll-controls-row">
-                                        <select id="num-dice-select">
+                                    <div class="motif-roll-controls-row motif-dark">
+                                        <select id="motif-num-dice-select" class="motif-select motif-dark">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -179,33 +181,43 @@
                                             <option value="9">9</option>
                                             <option value="10">10</option>
                                         </select>
-                                        <select id="dice-type-select">
-                                            <option value="d4">d4</option>
-                                            <option value="d6">d6</option>
-                                            <option value="d8">d8</option>
-                                            <option value="d10">d10</option>
-                                            <option value="d12">d12</option>
-                                            <option value="d20">d20</option>
+                                        <select id="motif-dice-type-select" class="motif-select motif-dark">
+                                            <option value="4">d4</option>
+                                            <option value="6">d6</option>
+                                            <option value="8">d8</option>
+                                            <option value="10">d10</option>
+                                            <option value="12">d12</option>
+                                            <option value="20">d20</option>
+                                            <option value="100">d100</option>
                                         </select>
-                                        <div class="modifier-group">
-                                            <select id="modifier-type-select">
-                                                <option value="+">+</option>
-                                                <option value="-">-</option>
+                                        <div class="motif-modifier-group motif-dark">
+                                            <select id="motif-modifier-type-select" class="motif-select motif-dark">
+                                                <option value="0">+0</option>
+                                                <option value="1">+1</option>
+                                                <option value="2">+2</option>
+                                                <option value="3">+3</option>
+                                                <option value="4">+4</option>
+                                                <option value="5">+5</option>
+                                                <option value="-1">-1</option>
+                                                <option value="-2">-2</option>
+                                                <option value="-3">-3</option>
+                                                <option value="-4">-4</option>
+                                                <option value="-5">-5</option>
                                             </select>
-                                            <input type="number" id="modifier-value" placeholder="0" min="0" max="99">
+                                            <input type="number" id="motif-modifier-value" class="motif-input motif-dark" placeholder="0" min="0" max="99">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="game-roll-results" class="roll-results"></div>
+                            <div id="motif-game-roll-results" class="motif-roll-results motif-dark"></div>
 
-                            <div class="preview-panel">
-                                <div class="preview-header">
-                                    <h3>Roll History Preview</h3>
+                            <div class="motif-preview-panel motif-dark">
+                                <div class="motif-preview-header motif-dark">
+                                    <h3 class="motif-h3 motif-dark">Roll History Preview</h3>
                                 </div>
-                                <div class="preview-content">
-                                    <div id="rolls-preview" class="preview-scroll-content"></div>
+                                <div class="motif-preview-content motif-dark">
+                                    <div id="motif-rolls-preview" class="motif-preview-scroll-content motif-dark"></div>
                                 </div>
                             </div>
                         </div>
@@ -214,181 +226,62 @@
             </div>
             
             <!-- Print Preview Tab -->
-            <div id="print-tab" class="main-tab-content">
-                <div class="print-controls">
-                    <button id="print-session-btn">Print Session</button>
+            <div id="print-tab" class="motif-main-tab-content motif-dark">
+                <div class="motif-print-controls motif-dark">
+                    <button id="motif-print-session-btn" class="motif-button motif-dark">Print Session</button>
                 </div>
-                <div class="print-preview">
-                    <div class="preview-section">
-                        <h2>Character</h2>
-                        <div id="print-character"></div>
+                <div class="motif-print-preview motif-dark">
+                    <div class="motif-preview-section motif-dark">
+                        <h2 class="motif-h2 motif-dark">Character</h2>
+                        <div id="motif-print-character" class="motif-preview-content motif-dark"></div>
                     </div>
-                    <div class="preview-section">
-                        <h2>Scene Notes</h2>
-                        <div id="print-scene"></div>
+                    <div class="motif-preview-section motif-dark">
+                        <h2 class="motif-h2 motif-dark">Scene Notes</h2>
+                        <div id="motif-print-scene" class="motif-preview-content motif-dark"></div>
                     </div>
-                    <div class="preview-section">
-                        <h2>Story So Far</h2>
-                        <div id="print-story"></div>
+                    <div class="motif-preview-section motif-dark">
+                        <h2 class="motif-h2 motif-dark">Story So Far</h2>
+                        <div id="motif-print-story" class="motif-preview-content motif-dark"></div>
                     </div>
-                    <div class="preview-section">
-                        <h2>Extra Notes</h2>
-                        <div id="print-extra"></div>
+                    <div class="motif-preview-section motif-dark">
+                        <h2 class="motif-h2 motif-dark">Extra Notes</h2>
+                        <div id="motif-print-extra" class="motif-preview-content motif-dark"></div>
                     </div>
-                    <div class="preview-section">
-                        <h2>Oracle Rolls</h2>
-                        <div id="print-rolls"></div>
+                    <div class="motif-preview-section motif-dark">
+                        <h2 class="motif-h2 motif-dark">Oracle Rolls</h2>
+                        <div id="motif-print-rolls" class="motif-preview-content motif-dark"></div>
                     </div>
                 </div>
             </div>
             
             <!-- PDF Viewer Tab -->
-            <div id="pdf-tab" class="main-tab-content">
-                <div id="pdf-viewer" class="pdf-viewer"></div>
+            <div id="pdf-tab" class="motif-main-tab-content motif-dark">
+                <div id="pdf-viewer" class="motif-pdf-viewer"></div>
             </div>
             
             <!-- About Tab -->
-            <div id="about-tab" class="main-tab-content" style="display: none;">
-                <div class="about-content">
-                    <h2>About the Motif Oracle Notebook</h2>
-                    <p>Motif Oracle Notebook is a TTRPG storytelling tool designed for solo roleplaying, tracking rolls & character notes during play, and creative writing. It uses a three-die system to generate answers and add nuance to your narrative. For more information about Motif, check out the <a href="https://www.drivethrurpg.com/en/product/361409/motif-toolkit-srd-motif-open-license-reference?affiliate_id=741284" target="_blank">Motif SRD</a> and <a href="https://www.drivethrurpg.com/en/product/316073/motif-story-engine-solo-and-gm-lite-roleplaying-toolkit?src=hottest_filtered&affiliate_id=741284" target="_blank">Motif Story Engine</a>. The source code is available on <a href="https://github.com/ThoughtPoliceRev/MotifNotebook" target="_blank">GitHub</a>. If you find this tool useful, please consider supporting the developer Rev via <a href="https://paypal.me/tpipc" target="_blank">PayPal</a> or <a href="https://bit.ly/payrev" target="_blank">Credit/Debit Card</a>.</p>
-                    
-                    <h3>Notebook Features</h3>
-                    <ul>
-                        <li><strong>Oracle:</strong> The main oracle interface with roll history and live results</li>
-                        <li><strong>Game Rolls:</strong> Dice roller for game mechanics</li>
-                        <li><strong>Character:</strong> A place for character details and development</li>
-                        <li><strong>Scene Notes:</strong> Track your current scene</li>
-                        <li><strong>Story So Far:</strong> Record your overall narrative</li>
-                        <li><strong>Extra Notes:</strong> Space for additional information</li>
-                    </ul>
-
-                    <h3>Main Features</h3>
-                    <ul>
-                        <li><strong>PDF Viewer:</strong>
-                            <ul>
-                                <li>View PDF documents alongside your notes</li>
-                                <li>Zoom and page navigation controls</li>
-                                <li>Fast, light, simple PDF rendering</li>
-                            </ul>
-                        </li>
-                        <li><strong>Oracle System:</strong>
-                            <ul>
-                                <li>Live roll results display</li>
-                                <li>Comprehensive roll history</li>
-                                <li>Multiple answer types and modifiers</li>
-                                <li>Various context options for different scenarios</li>
-                            </ul>
-                        </li>
-                        <li><strong>Game Rolls:</strong>
-                            <ul>
-                                <li>Support for d4, d6, d8, d10, d12, and d20</li>
-                                <li>Roll multiple dice at once (1-10)</li>
-                                <li>Add positive or negative modifiers</li>
-                                <li>Live results with individual die values</li>
-                                <li>Optional action descriptions for rolls</li>
-                                <li>Roll history tracking</li>
-                            </ul>
-                        </li>
-                        <li><strong>Rich Text Editing:</strong>
-                            <ul>
-                                <li>Full formatting options in all notebook sections</li>
-                                <li>Copy and paste support</li>
-                                <li>Image embedding</li>
-                                <li>Automatic content saving</li>
-                            </ul>
-                        </li>
-                        <li><strong>Session Management:</strong>
-                            <ul>
-                                <li>Auto-save every 30 seconds</li>
-                                <li>Backup save every 5 minutes</li>
-                                <li>Named session saves</li>
-                                <li>Export sessions as ZIP files</li>
-                                <li>Import previously exported sessions</li>
-                                <li>Local storage for offline use</li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <h3>Three-Die System:</h3>
-                    <ul>
-                        <li>Die 1: Answer Die
-                            <ul>
-                                <li>Plain Yes/No: Simple binary answers</li>
-                                <li>Mixed Yes/No/Maybe: Includes possibility of mixed or uncertain results</li>
-                            </ul>
-                        </li>
-                        <li>Die 2: Modifier Die
-                            <ul>
-                                <li>Wrinkle: Adds complications or twists</li>
-                                <li>Certainty: Indicates the confidence level of the answer</li>
-                            </ul>
-                        </li>
-                        <li>Die 3: Context Die
-                            <ul>
-                                <li>Provides additional context for interpreting the answer</li>
-                                <li>Multiple context options available for different situations:
-                                    <ul>
-                                        <li>Activity: Level of action or movement in the scene</li>
-                                        <li>Advantage: How favorable the circumstances are</li>
-                                        <li>Attention: Level of notice or observation</li>
-                                        <li>Disposition: Attitude or stance toward something</li>
-                                        <li>Impression: Quality of impact or effect</li>
-                                        <li>Progress: Movement toward or away from goals</li>
-                                        <li>Safety: Level of risk or security</li>
-                                        <li>Supernatural: Presence of mystical elements</li>
-                                        <li>Utility: How useful something is</li>
-                                        <li>Value: Worth or importance</li>
-                                        <li>Weird: How strange or unusual something is</li>
-                                        <li>YOUR CHOICE: Custom scale for any context</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <h3>Session Management</h3>
-                    <p>Your work is automatically saved and can be managed using the buttons at the top of the notebook:</p>
-                    <ul>
-                        <li><strong>Save Session:</strong> Create a named save of your current work</li>
-                        <li><strong>Load Session:</strong> 
-                            <ul>
-                                <li>View and load any saved session</li>
-                                <li>Delete unwanted saves using the trash can icon</li>
-                                <li>Auto-saves appear at the top of the list</li>
-                                <li>Shows date and time of each save</li>
-                            </ul>
-                        </li>
-                        <li><strong>Export Session:</strong> Save your work as a ZIP file for backup or sharing</li>
-                        <li><strong>Import Session:</strong> Load a previously exported ZIP file</li>
-                        <li><strong>New Session:</strong> Start fresh with a clean notebook (requires confirmation)</li>
-                    </ul>
-
-                    <h3>Print Preview</h3>
-                    <p>The Print Preview tab allows you to review your session:</p>
-                    <ul>
-                        <li>View the current record of all fields</li>
-                        <li>Export the session record as plain text, HTML, or Markdown</li>
-                    </ul>
-
-                    <h3>Data Safety</h3>
-                    <p>Your work is protected through multiple save mechanisms:</p>
-                    <ul>
-                        <li>Frequent auto-saves prevent data loss</li>
-                        <li>Backup saves provide additional protection</li>
-                        <li>Export feature allows external backups</li>
-                        <li>All data is stored locally in your browser</li>
-                        <li>Confirmation dialogs prevent accidental data loss</li>
+            <div id="about-tab" class="motif-main-tab-content motif-dark">
+                <div class="motif-about-content motif-dark">
+                    <h2 class="motif-h2 motif-dark">About the Motif Oracle Notebook</h2>
+                    <p class="motif-text motif-dark">Motif Oracle Notebook is a TTRPG storytelling tool designed for solo roleplaying, tracking rolls & character notes during play, and creative writing. It uses a three-die system to generate answers and add nuance to your narrative.</p>
+                    <h3 class="motif-h3 motif-dark">Notebook Features</h3>
+                    <ul class="motif-list motif-dark">
+                        <li><strong class="motif-strong motif-dark">Oracle:</strong> The main oracle interface with roll history and live results</li>
+                        <li><strong class="motif-strong motif-dark">Game Rolls:</strong> Dice roller for game mechanics</li>
+                        <li><strong class="motif-strong motif-dark">Character:</strong> A place for character details and development</li>
+                        <li><strong class="motif-strong motif-dark">Scene Notes:</strong> Track your current scene</li>
+                        <li><strong class="motif-strong motif-dark">Story So Far:</strong> Record your overall narrative</li>
+                        <li><strong class="motif-strong motif-dark">Extra Notes:</strong> Space for additional information</li>
                     </ul>
                 </div>
             </div>
         </main>
-        <footer>
-            <p>
+        <footer class="motif-footer motif-dark">
+            <p class="motif-text motif-dark">
                 Source code available at <a href="https://github.com/ThoughtPoliceRev/MotifNotebook" target="_blank">GitHub</a> | 
                 Support the developer: <a href="https://paypal.me/tpipc" target="_blank">PayPal</a> or <a href="https://bit.ly/payrev" target="_blank">Card</a>
             </p>
-            <p>
+            <p class="motif-text motif-dark">
                 Motif Oracle Notebook was developed by Rev from <a href="https://bsky.app/profile/thoughtpunks.com" target="_blank">Thought Punks</a>. 
                 Motif is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
             </p>
@@ -396,39 +289,43 @@
     </div>
     
     <!-- Save Session Modal -->
-    <div id="save-session-modal" class="modal">
-        <div class="modal-content">
-            <h3>Save Session</h3>
-            <div class="save-session-container">
-                <select id="save-session-select" class="session-select">
+    <div id="motif-save-session-modal" class="motif-modal motif-dark">
+        <div class="motif-modal-content motif-dark">
+            <h3 class="motif-h3 motif-dark">Save Session</h3>
+            <div class="motif-save-session-container motif-dark">
+                <select id="motif-save-session-select" class="motif-select motif-dark">
                     <option value="NEW_SAVE">NEW SAVE</option>
                 </select>
-                <div id="new-save-input" style="display: none;">
-                    <input type="text" id="session-name-input" placeholder="Enter session name">
+                <div id="motif-new-save-input" class="motif-input-group motif-dark" style="display: none;">
+                    <input type="text" id="motif-session-name-input" class="motif-input motif-dark" placeholder="Enter session name">
                 </div>
-                <div class="modal-buttons">
-                    <button id="save-session-ok" class="modal-btn">OK</button>
-                    <button id="save-session-cancel" class="modal-btn">Cancel</button>
+                <div class="motif-modal-buttons motif-dark">
+                    <button id="motif-save-session-ok" class="motif-button motif-modal-btn motif-dark">OK</button>
+                    <button id="motif-save-session-cancel" class="motif-button motif-modal-btn motif-dark">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Confirmation Modal -->
-    <div id="confirm-modal" class="modal">
-        <div class="modal-content">
-            <h3>Confirm Overwrite</h3>
-            <p id="confirm-message">Are you sure you want to overwrite this save?</p>
-            <div class="modal-buttons">
-                <button id="confirm-yes" class="modal-btn">Yes</button>
-                <button id="confirm-no" class="modal-btn">No</button>
+    <div id="motif-confirm-modal" class="motif-modal motif-dark">
+        <div class="motif-modal-content motif-dark">
+            <div class="motif-modal-header motif-dark">
+                <h3 class="motif-h3 motif-dark">Confirm Overwrite</h3>
+            </div>
+            <div class="motif-modal-body motif-dark">
+                <p id="motif-confirm-message" class="motif-text motif-dark">Are you sure you want to overwrite this save?</p>
+            </div>
+            <div class="motif-modal-footer motif-dark">
+                <button id="motif-confirm-yes" class="motif-button motif-modal-btn motif-dark">Yes</button>
+                <button id="motif-confirm-no" class="motif-button motif-modal-btn motif-dark">No</button>
             </div>
         </div>
     </div>
 
     <!-- Success Message -->
-    <div id="success-message" class="success-message">
-        Session saved successfully!
+    <div id="motif-success-message" class="motif-success-message motif-dark">
+        <p class="motif-text motif-dark">Session saved successfully!</p>
     </div>
     
     <script src="js/motif-notebook.js"></script>
